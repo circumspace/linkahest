@@ -1,0 +1,21 @@
+# LinkShare Android Project
+
+This is an Android app built with Kotlin and Jetpack Compose that transforms social media links (YouTube, Twitter/X) for privacy.
+
+## Key Technologies:
+- Kotlin
+- Jetpack Compose
+- Material Design 3
+- Room Database
+- MVVM Architecture
+
+## Project Structure:
+- Standard Android project structure
+- Package: com.hermeticvm.linkshare
+- Min SDK: 24 (Android 7.0)
+- Target SDK: 34 (Android 14)
+
+## Build Commands:
+- `./gradlew build` - Build the project
+- `./gradlew installDebug` - Install debug APK to connected device
+- `./gradlew assembleDebug` - Generate debug APK

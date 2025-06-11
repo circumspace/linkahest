@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Linkahest</string>
+    <string name="transform_link">Transform Link</string>
+    <string name="youtube_clean">Clean YouTube</string>
+    <string name="youtube_invidious">YouTube to Invidious</string>
+    <string name="twitter_nitter">Twitter to Nitter</string>
+    <string name="share">Share</string>
+    <string name="history">History</string>
+    <string name="settings">Settings</string>
+    <string name="original_url">Original URL</string>
+    <string name="transformed_url">Transformed URL</string>
+    <string name="copy">Copy</string>
+    <string name="copied">Copied to clipboard</string>
+    <string name="transformation_complete">Link transformed successfully</string>
+    <string name="no_transformations_available">No transformations available for this link</string>
+    <string name="invalid_url">Invalid URL</string>
+    <string name="default_invidious_instance">Default Invidious Instance</string>
+    <string name="default_nitter_instance">Default Nitter Instance</string>
+    <string name="clear_history">Clear History</string>
+    <string name="clear_history_confirmation">Are you sure you want to clear all history?</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+</resources>
