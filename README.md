@@ -4,15 +4,20 @@ A privacy-focused Android app that transforms social media links to selfhostable
 
 ## Features
 
-- 🔗 **YouTube Link Transformation**
+Sharing links to content (posts, threads, comments, videos) from the following commercial, privacy-invasive platforms will be transformed to community-hosted/self-hosted, privacy-preserving alternatives:
+
+- 🔗 **YouTube**
   - Clean YouTube URLs (remove tracking parameters)
-  - Convert to Invidious instances for privacy
+  - Convert to **Invidious** instances for privacy
   
-- 🐦 **Twitter/X Link Transformation**
-  - Convert Twitter/X links to Nitter instances
+- 🐦 **Twitter/X**
+  - Convert Twitter/X links to **Nitter** instances
   
+- 🐦 **Reddit**
+  - Convert Reddit links to Redlib instances
+
 - 📱 **Seamless Integration**
-  - Appears in Android share menu
+  - Appears in Android share sheet
   - Material Design 3 interface
   
 - 🔒 **Privacy First**
@@ -21,12 +26,25 @@ A privacy-focused Android app that transforms social media links to selfhostable
   - No data collection
   - Local database only
 
+
 ## How to Use
 
 1. Share any YouTube or Twitter/X/Reddit link from any app
 2. Select "Linkahest" from the share menu
 3. Choose your preferred transformation
 4. Share the transformed link to other apps
+
+## Link transformations
+
+### YouTube
+- **Strip tracking identifier**: `youtube.com/watch?v=ID&si=tracking` → `youtube.com/watch?v=ID`
+- **Invidious**: `youtube.com/watch?v=ID` → `yewtu.be/watch?v=ID`
+
+### Twitter/X
+- **Nitter**: `twitter.com/user/status/ID` → `nitter.net/user/status/ID`
+
+### Reddit
+- **Redlib**: `reddit.com/r/subreddit/comments/postID` → `rl.bloat.cat/r/subreddit/comments/postID`
 
 ## Building the App
 
@@ -80,18 +98,6 @@ app/src/main/java/com/hermeticvm/linkahest/
 - **Room** for local storage
 - **Material Design 3** components
 - **Kotlin Coroutines** for async operations
-
-## URL Transformations
-
-### YouTube
-- **Strip tracking**: `youtube.com/watch?v=ID&si=tracking` → `youtube.com/watch?v=ID`
-- **Invidious**: `youtube.com/watch?v=ID` → `yewtu.be/watch?v=ID`
-
-### Twitter/X
-- **Nitter**: `twitter.com/user/status/ID` → `nitter.net/user/status/ID`
-
-### Reddit
-- **Redlib**: `reddit.com/r/subreddit/comments/postID` → `rl.bloat.cat/r/subreddit/comments/postID`
 
 ## Testing
 
