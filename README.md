@@ -1,7 +1,7 @@
 # Linkahest Android App
 
 <div align="center">
-  <img src="linkahest_icon_512.png" alt="Linkahest App Icon" width="128" height="128">
+  <img src="linkahest_icon_512.png" alt="Linkahest App Icon" width="256" height="256">
 </div>
 
 A privacy-focused Android app that transforms social media links to selfhostable alternative frontends before sharing them. Built with Kotlin and Jetpack Compose. Vibe coded with passion and [goose](https://github.com/block/goose).
@@ -29,6 +29,26 @@ Sharing links to content (posts, threads, comments, videos) from the following c
   - No cloud sync
   - No data collection
   - Local database only
+
+## Screenshots
+
+**Main Screen**
+
+<img src="mainscreen-preview.png" alt="Linkahest Main Screen" width="300">
+
+### Share from YouTube to Invidious
+
+**1. Share from YouTube app**
+
+<img src="share-from-yt.png" alt="Share from YouTube app" width="300">
+
+**2. Choose transformation option**
+
+<img src="share-new-link.png" alt="Choose transformation option" width="300">
+
+**3. Share transformed link**
+
+<img src="share-sheet.png" alt="Share transformed link" width="300">
 
 
 ## How to Use
