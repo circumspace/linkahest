@@ -34,7 +34,7 @@ Sharing links to content (posts, threads, comments, videos) from the following c
 
 **Main Screen**
 
-<img src="mainscreen-preview.png" alt="Linkahest Main Screen" width="300">
+<img src="mainscreen-preview.png" alt="Linkahest Main Screen with usage instructions, settings and credits" width="300">
 
 ### Share from YouTube to Invidious
 
@@ -48,7 +48,11 @@ Sharing links to content (posts, threads, comments, videos) from the following c
 
 **3. Share transformed link**
 
-<img src="share-sheet.png" alt="Share transformed link" width="300">
+<img src="share-sheet.png" alt="Share transformed link (fear my incredible Pixelmator skills)" width="300">
+
+**4. Custom instances**
+
+<img src="custom-instances.png" alt="Add and select custom instances" width="300">
 
 
 ## How to Use
