@@ -1,5 +1,9 @@
 # Linkahest Android App
 
+<div align="center">
+  <img src="linkahest_icon_512.png" alt="Linkahest App Icon" width="128" height="128">
+</div>
+
 A privacy-focused Android app that transforms social media links to selfhostable alternative frontends before sharing them. Built with Kotlin and Jetpack Compose. Vibe coded with passion and [goose](https://github.com/block/goose).
 
 ## Features

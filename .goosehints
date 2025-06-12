@@ -1,0 +1,12 @@
+# .goosehints
+
+## Development Workflow
+- Always ask for permission before staging, committing, or pushing git changes
+- User prefers to control git operations manually
+- It's okay to ask if changes should be staged/committed/pushed
+
+## Project Info
+- Android app called Linkahest
+- Privacy-focused link transformation app
+- Built with Kotlin + Jetpack Compose
+- Uses Material Design 3
