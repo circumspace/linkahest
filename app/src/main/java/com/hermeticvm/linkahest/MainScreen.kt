@@ -40,11 +40,10 @@ fun MainScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // App Icon
-        Icon(
-            imageVector = Icons.Default.Link,
+        Image(
+            painter = painterResource(id = R.drawable.ic_linkahest_logo),
             contentDescription = "Linkahest Icon",
-            modifier = Modifier.size(80.dp),
-            tint = MaterialTheme.colorScheme.primary
+            modifier = Modifier.size(80.dp)
         )
         
         Spacer(modifier = Modifier.height(16.dp))
@@ -143,15 +142,7 @@ fun MainScreen(
                 Text(
                     text = "Follow on nostr",
                     style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.clickable {
-                        try {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://njump.me/npub1rfw075gc6pc693w5v568xw4mnu7umlzpkfxmqye0cgxm7qw8tauqfck3t8"))
-                            context.startActivity(intent)
-                        } catch (e: Exception) {
-                            // Handle case where no browser is available
-                        }
-                    }
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
                     text = "https://njump.me/npub1rfw075gc6pc693w5v568xw4mnu7umlzpkfxmqye0cgxm7qw8tauqfck3t8",
@@ -226,7 +217,7 @@ fun MainScreen(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "lightning:hermeticvm@minibits.cash",
+                            text = "hermeticvm@minibits.cash",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -275,7 +266,7 @@ fun MainScreen(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "monero:8AuPVyudY9hRedjkRzCisrDq5rnzbUvCTckcQr5dUaGWa1yzo77uMUP8LPpSQvPBbGEktHpPqkHFPdXuCYBEL6iz9kXAhFW",
+                            text = "8AuPVyudY9hRedjkRzCisrDq5rnzbUvCTckcQr5dUaGWa1yzo77uMUP8LPpSQvPBbGEktHpPqkHFPdXuCYBEL6iz9kXAhFW",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.primary
                         )
