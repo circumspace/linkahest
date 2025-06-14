@@ -1,9 +1,6 @@
-identifier: com.hermeticvm.linkahest
-version: 0.1.1
 name: Linkahest
 repository: https://codeberg.org/hermeticvm/linkahest
 summary: A privacy-focused Android app that transforms social media links to selfhostable alternative frontends like Nitter, Invidious and Redlib before sharing them.
-release_repository: https://codeberg.org/hermeticvm/linkahest/releases
 homepage: https://codeberg.org/hermeticvm/linkahest
 images:
   - ../mainscreen-preview.png
