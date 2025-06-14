@@ -1,0 +1,21 @@
+identifier: com.hermeticvm.linkahest
+version: 0.1.1
+name: Linkahest
+repository: https://codeberg.org/hermeticvm/linkahest
+summary: A privacy-focused Android app that transforms social media links to selfhostable alternative frontends like Nitter, Invidious and Redlib before sharing them.
+release_repository: https://codeberg.org/hermeticvm/linkahest/releases
+homepage: https://codeberg.org/hermeticvm/linkahest
+images:
+  - ../mainscreen-preview.png
+  - ../share-from-yt.png
+  - ../share-new-link.png
+icon: linkahest_icon_512.png
+tags: freedom-tech privacy android selfhosted reddit youtube twitter
+license: GPLv3
+remote_metadata:
+  - codeberg
+blossom_servers:
+  - https://cdn.zapstore.dev
+  - https://blossom.band
+assets: # for local
+  - ../app/build/outputs/apk/debug/*.apk
