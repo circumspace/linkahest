@@ -1,0 +1,3 @@
+# git workflow permissions
+Do not stage, commit, or push git changes without explicit user approval. Always ask before performing git operations. User prefers to control git workflow manually.
+
