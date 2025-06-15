@@ -7,12 +7,11 @@ images:
   - ../share-from-yt.png
   - ../share-new-link.png
 icon: linkahest_icon_512.png
-tags: freedom-tech privacy android selfhosted reddit youtube twitter
+tags: freedom-tech privacy android selfhosted reddit youtube twitter invidious redlib nitter
 license: GPLv3
 remote_metadata:
   - codeberg
 blossom_servers:
   - https://cdn.zapstore.dev
-  - https://blossom.band
 assets: # for local
   - ../app/build/outputs/apk/debug/*.apk
