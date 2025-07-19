@@ -166,12 +166,12 @@ fun MainScreen(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = "https://codeberg.org/hermeticvm/linkahest",
+                    text = "https://github.com/circumspace/linkahest",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.clickable {
                         try {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://codeberg.org/hermeticvm/linkahest"))
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/circumspace/linkahest"))
                             context.startActivity(intent)
                         } catch (e: Exception) {
                             // Handle case where no browser is available
