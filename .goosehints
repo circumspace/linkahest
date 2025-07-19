@@ -4,6 +4,7 @@
 - Always ask for permission before staging, committing, or pushing git changes
 - User prefers to control git operations manually
 - It's okay to ask if changes should be staged/committed/pushed
+- After successful artefact build, copy apk to ~/ProtonDrive/ and overwrite any existing "app-debug.apk" file (NEVER delete or overwrite another file within the protondrive folder!)
 
 ## Project Info
 - Android app called Linkahest
