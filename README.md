@@ -151,15 +151,13 @@ You can test the app by:
 - [x] Custom URL patterns
 
 ### Code Signing & Distribution
-- [ ] Figure out how to do codesigning
-- [ ] Automate codesigning via script, makefile or function associated with git pushes
-- [ ] Research how to publish to Zapstore
-- [ ] Test released artifact installation with Obtainium
+- [x] Research how to publish to Zapstore
+- [x] Test released artifact installation with Obtainium
 
 ### Branding & Documentation
 - [x] Rename app in code dependent upon final naming decision
   - Final name: **Linkahest** ✅
-- [ ] Update readme and dev docs (features, functionality, name)
+- [x] Update readme and dev docs (features, functionality, name)
 
 ### Development Infrastructure
-- [ ] Mirror code to github for issue tracking & contributions
+- [x] Migrate code to Github
