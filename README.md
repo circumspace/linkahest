@@ -1,10 +1,14 @@
-# Linkahest Android App
+# Linkahest
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Android](https://img.shields.io/badge/Platform-Android-green.svg)](https://www.android.com)
+[![Kotlin](https://img.shields.io/badge/Language-Kotlin-purple.svg)](https://kotlinlang.org)
+
+A privacy-focused Android app written in Kotlin that transforms social media links to selfhostable alternative frontends before sharing them. First released under GPL v3 in 2025.
 
 <div align="center">
-  <img src="linkahest_icon_512.png" alt="Linkahest App Icon" width="256" height="256">
+  <img src="linkahest_icon_512.png" alt="Linkahest App Icon" width="128" height="128">
 </div>
-
-A privacy-focused Android app that transforms social media links to selfhostable alternative frontends before sharing them. Built with Kotlin and Jetpack Compose. Vibe coded with passion and [goose](https://github.com/block/goose).
 
 ## Features
 
@@ -32,28 +36,37 @@ Sharing links to content (posts, threads, comments, videos) from the following c
 
 ## Screenshots
 
-**Main Screen**
+| Main Screen | Share from YouTube | Choose Option | Share Transformed | Custom Instances |
+|:-----------:|:------------------:|:-------------:|:-----------------:|:----------------:|
+| ![main](mainscreen-preview.png) | ![share](share-from-yt.png) | ![option](share-new-link.png) | ![transform](share-sheet.png) | ![instances](custom-instances.png) |
 
-<img src="mainscreen-preview.png" alt="Linkahest Main Screen with usage instructions, settings and credits" width="300">
 
-### Share from YouTube to Invidious
+## Installation
 
-**1. Share from YouTube app**
+### Zapstore (Recommended)
+Linkahest is available on [Zapstore](https://zapstore.dev/):
+```
+Search for "Linkahest" in Zapstore (on Android)
+```
 
-<img src="share-from-yt.png" alt="Share from YouTube app" width="300">
+### Obtainium (or direct APK download)
+Add [release link](https://github.com/circumspace/linkahest/releases) to Obtainium or install APK manually
 
-**2. Choose transformation option**
+### Build from Source
+```bash
+git clone https://github.com/circumspace/linkahest.git
+cd linkahest
+./gradlew assembleDebug
+./gradlew installDebug
+```
 
-<img src="share-new-link.png" alt="Choose transformation option" width="300">
+## Quick Start
 
-**3. Share transformed link**
-
-<img src="share-sheet.png" alt="Share transformed link (fear my incredible Pixelmator skills)" width="300">
-
-**4. Custom instances**
-
-<img src="custom-instances.png" alt="Add and select custom instances" width="300">
-
+1. **Install the app** from Zapstore or download the APK
+2. **Share any link** from YouTube, Twitter/X, or Reddit
+3. **Select "Linkahest"** from the share menu
+4. **Choose transformation** (clean URL, Invidious, Nitter, or Redlib)
+5. **Share the transformed link** to other apps
 
 ## How to Use
 
@@ -98,7 +111,7 @@ Sharing links to content (posts, threads, comments, videos) from the following c
 ### Generated APK Location
 
 Debug APK: `app/build/outputs/apk/debug/app-debug.apk`
-Release APK: `app/build/outputs/apk/release/app-release-unsigned.apk`
+Release APK: `app/build/outputs/apk/release/app-release-unsigned.apk` (**NOTICE**: Release APs are untested as of yet)
 
 ## Project Structure
 
@@ -142,22 +155,51 @@ You can test the app by:
 - Uses Material 3 dynamic theming
 - Supports both light and dark themes
 
-## TODO List
+## Contributing
 
-### Functionality
-- [x] Settings screen for custom instances
-- [ ] History management UI
-- [x] Additional social platforms
-- [x] Custom URL patterns
+We welcome contributions! Here's how to get started:
 
-### Code Signing & Distribution
-- [x] Research how to publish to Zapstore
-- [x] Test released artifact installation with Obtainium
+### Development Setup
+```bash
+# Clone the repository
+git clone https://github.com/circumspace/linkahest.git
+cd linkahest
 
-### Branding & Documentation
-- [x] Rename app in code dependent upon final naming decision
-  - Final name: **Linkahest** ✅
-- [x] Update readme and dev docs (features, functionality, name)
+# Open in Android Studio
+# Or build from command line
+./gradlew assembleDebug
+```
 
-### Development Infrastructure
-- [x] Migrate code to Github
+### Contribution Process
+1. **Fork the repository**
+2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
+3. **Make your changes** following the existing code style
+4. **Test your changes** on a real device or emulator
+5. **Commit with clear messages**: `git commit -m 'Add amazing feature'`
+6. **Push to your branch**: `git push origin feature/amazing-feature`
+7. **Open a Pull Request** with a clear description
+
+### Code Style
+- Follow standard Kotlin conventions
+- Use meaningful variable and function names
+- Add comments for complex logic
+- Ensure the app builds without warnings
+
+### Reporting Issues
+- **Bug reports**: Use [GitHub Issues](https://github.com/circumspace/linkahest/issues)
+- **Feature requests**: Open an issue with the "enhancement" label
+- **Security issues**: Email [security@circumspace.com](mailto:security@circumspace.com)
+
+## Authors
+
+- **hermeticvm** - Initial work and primary maintainer - [circumspace](https://github.com/circumspace)
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Built with [Jetpack Compose](https://developer.android.com/jetpack/compose)
+- Uses [Material Design 3](https://m3.material.io/) components
+- Cypherpunks, nostriches and other freedom tech people
