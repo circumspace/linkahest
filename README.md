@@ -8,7 +8,7 @@ A privacy-focused Android app written in Kotlin that transforms social media lin
 
 <div align="center">
   <img src="linkahest_icon_512.png" alt="Linkahest App Icon" width="128" height="128">
-</div>
+</div>`
 
 ## Features
 
