@@ -6,6 +6,8 @@
 
 A privacy-focused Android app written in Kotlin that transforms social media links to selfhostable alternative frontends before sharing them. First released under GPL v3 in 2025.
 
+Vibed with Goose and Cline.
+
 <div align="center">
   <img src="linkahest_icon_512.png" alt="Linkahest App Icon" width="128" height="128">
 </div>`
@@ -33,6 +35,7 @@ Sharing links to content (posts, threads, comments, videos) from the following c
   - No cloud sync
   - No data collection
   - Local database only
+  - No usage metrics collection whatsoever
 
 ## Screenshots
 
@@ -45,28 +48,22 @@ Sharing links to content (posts, threads, comments, videos) from the following c
 
 ### Zapstore (Recommended)
 Linkahest is available on [Zapstore](https://zapstore.dev/):
-```
-Search for "Linkahest" in Zapstore (on Android)
-```
+
+Search for "Linkahest" in Zapstore (on Android).
+
 
 ### Obtainium (or direct APK download)
-Add [release link](https://github.com/circumspace/linkahest/releases) to Obtainium or install APK manually
-
-### Build from Source
-```bash
-git clone https://github.com/circumspace/linkahest.git
-cd linkahest
-./gradlew assembleDebug
-./gradlew installDebug
-```
+Add [release link](https://github.com/circumspace/linkahest/releases) to Obtainium or install APK manually.
 
 ## Quick Start
 
-1. **Install the app** from Zapstore or download the APK
+1. **Install the app** from Zapstore, Obtainium or just download the APK
 2. **Share any link** from YouTube, Twitter/X, or Reddit
 3. **Select "Linkahest"** from the share menu
-4. **Choose transformation** (clean URL, Invidious, Nitter, or Redlib)
-5. **Share the transformed link** to other apps
+4. **Optional:** Pin Linkahest for more frequent use!
+5. **Choose transformation** (clean URL, Invidious, Nitter, or Redlib)
+6. **Share the transformed link** to other apps
+7. **Tap the transformed link** for your own needs without sharing it!
 
 ## How to Use
 
@@ -91,7 +88,7 @@ cd linkahest
 
 ### Prerequisites
 
-- Android Studio Arctic Fox or newer
+- Android Studio
 - JDK 8 or newer
 - Android SDK API 34
 
@@ -104,14 +101,15 @@ cd linkahest
 # Install to connected device
 ./gradlew installDebug
 
-# Build release APK (unsigned)
+# Build release APK (unsigned)  (**NOTICE**: Release APKs are untested as of yet)
 ./gradlew assembleRelease
 ```
 
 ### Generated APK Location
 
 Debug APK: `app/build/outputs/apk/debug/app-debug.apk`
-Release APK: `app/build/outputs/apk/release/app-release-unsigned.apk` (**NOTICE**: Release APs are untested as of yet)
+
+Release APK: `app/build/outputs/apk/release/app-release-unsigned.apk`
 
 ## Project Structure
 
@@ -157,19 +155,6 @@ You can test the app by:
 
 ## Contributing
 
-We welcome contributions! Here's how to get started:
-
-### Development Setup
-```bash
-# Clone the repository
-git clone https://github.com/circumspace/linkahest.git
-cd linkahest
-
-# Open in Android Studio
-# Or build from command line
-./gradlew assembleDebug
-```
-
 ### Contribution Process
 1. **Fork the repository**
 2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
@@ -179,20 +164,23 @@ cd linkahest
 6. **Push to your branch**: `git push origin feature/amazing-feature`
 7. **Open a Pull Request** with a clear description
 
-### Code Style
-- Follow standard Kotlin conventions
-- Use meaningful variable and function names
-- Add comments for complex logic
-- Ensure the app builds without warnings
-
 ### Reporting Issues
 - **Bug reports**: Use [GitHub Issues](https://github.com/circumspace/linkahest/issues)
 - **Feature requests**: Open an issue with the "enhancement" label
-- **Security issues**: Email [security@circumspace.com](mailto:security@circumspace.com)
 
 ## Authors
 
 - **hermeticvm** - Initial work and primary maintainer - [circumspace](https://github.com/circumspace)
+
+## Donate
+
+If you think this app is helpful, consider supporting me. I do not track any usage metrics whatsoever, so ever sign of support helps in keeping me motivated to maintain this app. Appreciate it!
+
+**Bitcoin:** `bc1qjt5n267ka8zuagtmrurez9vjs43hlg3qkqc8sc`
+
+**Bitcoin Lightning:** [hermeticvm@minibits.cash](lightning:hermeticvm@minibits.cash)
+
+**Monero:** `8AuPVyudY9hRedjkRzCisrDq5rnzbUvCTckcQr5dUaGWa1yzo77uMUP8LPpSQvPBbGEktHpPqkHFPdXuCYBEL6iz9kXAhFW
 
 ## License
 
@@ -202,4 +190,5 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 - Built with [Jetpack Compose](https://developer.android.com/jetpack/compose)
 - Uses [Material Design 3](https://m3.material.io/) components
-- Cypherpunks, nostriches and other freedom tech people
+- Cypherpunks, nostriches and other freedom tech people who keep on inspiring me!
+ who 
