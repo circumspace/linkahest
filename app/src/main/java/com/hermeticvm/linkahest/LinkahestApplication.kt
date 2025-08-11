@@ -9,6 +9,7 @@ import com.hermeticvm.linkahest.data.repository.SettingsRepository
 import com.hermeticvm.linkahest.domain.transformers.TwitterTransformer
 import com.hermeticvm.linkahest.domain.transformers.YouTubeTransformer
 import com.hermeticvm.linkahest.domain.transformers.RedditTransformer
+import com.hermeticvm.linkahest.domain.transformers.UniversalCleanerTransformer
 import com.hermeticvm.linkahest.domain.usecases.TransformLinkUseCase
 
 class LinkahestApplication : Application() {
@@ -60,8 +61,10 @@ class LinkahestApplication : Application() {
         }
     }
     
+    val universalCleanerTransformer by lazy { UniversalCleanerTransformer() }
+    
     // Use cases
     val transformLinkUseCase by lazy { 
-        TransformLinkUseCase(repository, youtubeTransformer, twitterTransformer, redditTransformer) 
+        TransformLinkUseCase(repository, youtubeTransformer, twitterTransformer, redditTransformer, universalCleanerTransformer) 
     }
 }

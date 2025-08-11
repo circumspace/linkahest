@@ -46,8 +46,13 @@ class TwitterTransformer(
         try {
             val uri = URI(url)
             val path = uri.path ?: ""
-            val query = uri.query?.let { "?$it" } ?: ""
-            val fragment = uri.fragment?.let { "#$it" } ?: ""
+            
+            // Clean tracking parameters from query and fragment
+            val cleanUrl = TrackingCleaner.cleanUrl(url)
+            val cleanUri = URI(cleanUrl)
+            
+            val query = cleanUri.query?.let { "?$it" } ?: ""
+            val fragment = cleanUri.fragment?.let { "#$it" } ?: ""
             
             val nitterInstance = getNitterInstance()
             return "https://$nitterInstance$path$query$fragment"

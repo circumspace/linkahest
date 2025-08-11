@@ -51,8 +51,9 @@ class YouTubeTransformer(
             val uri = URI(url)
             val videoId = extractVideoId(uri) ?: return url
             
-            // Return clean YouTube URL
-            return "https://www.youtube.com/watch?v=$videoId"
+            // Build clean YouTube URL and then remove tracking parameters
+            val cleanUrl = "https://www.youtube.com/watch?v=$videoId"
+            return TrackingCleaner.cleanUrl(cleanUrl)
         } catch (e: Exception) {
             return url
         }
