@@ -7,29 +7,44 @@ import com.hermeticvm.linkahest.domain.transformers.LinkTransformer
 import com.hermeticvm.linkahest.domain.transformers.YouTubeTransformer
 import com.hermeticvm.linkahest.domain.transformers.TwitterTransformer
 import com.hermeticvm.linkahest.domain.transformers.RedditTransformer
+import com.hermeticvm.linkahest.domain.transformers.UniversalCleanerTransformer
 
 class TransformLinkUseCase(
     private val repository: LinkTransformationRepository,
     private val youtubeTransformer: YouTubeTransformer,
     private val twitterTransformer: TwitterTransformer,
-    private val redditTransformer: RedditTransformer
+    private val redditTransformer: RedditTransformer,
+    private val universalCleanerTransformer: UniversalCleanerTransformer
 ) {
     
     private val transformers: List<LinkTransformer> = listOf(
         youtubeTransformer,
         twitterTransformer,
-        redditTransformer
+        redditTransformer,
+        universalCleanerTransformer
     )
     
     fun getAvailableTransformations(url: String): List<TransformationOption> {
-        return transformers.flatMap { transformer ->
-            transformer.getTransformationOptions(url)
+        val options = mutableListOf<TransformationOption>()
+        
+        // First, check if universal cleaning is available
+        val universalOptions = universalCleanerTransformer.getTransformationOptions(url)
+        if (universalOptions.isNotEmpty()) {
+            options.addAll(universalOptions)
         }
+        
+        // Then add platform-specific transformations
+        transformers.filter { it !is UniversalCleanerTransformer }
+            .forEach { transformer ->
+                options.addAll(transformer.getTransformationOptions(url))
+            }
+        
+        return options
     }
     
     suspend fun transformUrl(url: String, option: TransformationOption): String {
         return transformers.firstOrNull { transformer ->
-            transformer.canTransform(url)
+            transformer.canTransform(url) && transformer.getTransformationOptions(url).any { it.type == option.type }
         }?.transform(url, option) ?: url
     }
     
