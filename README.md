@@ -14,8 +14,15 @@ Vibed with Goose and Cline.
 
 ## Features
 
-Sharing links to content (posts, threads, comments, videos) from the following commercial, privacy-invasive platforms will be transformed to community-hosted/self-hosted, privacy-preserving alternatives:
+Transform any link to remove tracking parameters and convert social media links to privacy-focused alternatives:
 
+### **Universal Tracking Removal** 🧹
+- **Remove tracking parameters** from any URL (UTM codes, social media IDs, analytics, etc.)
+- **50+ tracking parameters** automatically detected and removed
+- **Cloaked URL detection** - extracts real URLs from redirect services
+- **Works on any URL** - not limited to social media
+
+### **Platform Transformations**
 - 🔗 **YouTube**
   - Clean YouTube URLs (remove tracking parameters)
   - Convert to **Invidious** instances for privacy
@@ -24,18 +31,13 @@ Sharing links to content (posts, threads, comments, videos) from the following c
   - Convert Twitter/X links to **Nitter** instances
   
 - 🐦 **Reddit**
-  - Convert Reddit links to Redlib instances
+  - Convert Reddit links to **Redlib** instances
 
-- 📱 **Seamless Integration**
-  - Appears in Android share sheet
-  - Material Design 3 interface
-  
-- 🔒 **Privacy First**
-  - Works completely offline
-  - No cloud sync
-  - No data collection
-  - Local database only
-  - No usage metrics collection whatsoever
+### **Privacy & Integration**
+- 📱 **Seamless Integration** - appears in Android share sheet
+- 🔒 **Privacy First** - works completely offline, no data collection
+- 🎨 **Material Design 3** interface with light/dark themes
+- 📖 **Eink-friendly** - high contrast for eink devices
 
 ## Screenshots
 
@@ -191,4 +193,4 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 - Built with [Jetpack Compose](https://developer.android.com/jetpack/compose)
 - Uses [Material Design 3](https://m3.material.io/) components
 - Cypherpunks, nostriches and other freedom tech people who keep on inspiring me!
- who 
+ who
