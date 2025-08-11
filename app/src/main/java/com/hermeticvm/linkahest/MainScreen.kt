@@ -109,7 +109,7 @@ fun MainScreen(
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant
+                containerColor = MaterialTheme.colorScheme.surface
             )
         ) {
             Column(
@@ -119,7 +119,7 @@ fun MainScreen(
                 Text(
                     text = "Credits",
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
@@ -129,12 +129,12 @@ fun MainScreen(
                 Text(
                     text = "Author",
                     style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     text = "hermeticvm",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -142,12 +142,12 @@ fun MainScreen(
                 Text(
                     text = "Follow on nostr",
                     style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     text = "https://njump.me/npub1rfw075gc6pc693w5v568xw4mnu7umlzpkfxmqye0cgxm7qw8tauqfck3t8",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.clickable {
                         try {
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://njump.me/npub1rfw075gc6pc693w5v568xw4mnu7umlzpkfxmqye0cgxm7qw8tauqfck3t8"))
@@ -163,12 +163,12 @@ fun MainScreen(
                 Text(
                     text = "Source Code",
                     style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     text = "https://github.com/circumspace/linkahest",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.clickable {
                         try {
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/circumspace/linkahest"))
@@ -184,7 +184,7 @@ fun MainScreen(
                 Text(
                     text = "Support/Donate",
                     style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 
                 Spacer(modifier = Modifier.height(4.dp))
@@ -202,7 +202,7 @@ fun MainScreen(
                                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse("lightning:hermeticvm@minibits.cash"))
                                     context.startActivity(intent)
                                 } catch (e: Exception) {
-                                    // Handle case where no lightning app is available
+                                    // Handle case where no Lightning app is available
                                     snackbarMessage = "No Lightning app found"
                                     showSnackbar = true
                                 }
@@ -218,8 +218,8 @@ fun MainScreen(
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = "hermeticvm@minibits.cash",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.primary
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
                     IconButton(
@@ -232,7 +232,7 @@ fun MainScreen(
                         Icon(
                             Icons.Default.ContentCopy,
                             contentDescription = "Copy Lightning address",
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 }
@@ -267,8 +267,8 @@ fun MainScreen(
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = "8AuPVyudY9hRedjkRzCisrDq5rnzbUvCTckcQr5dUaGWa1yzo77uMUP8LPpSQvPBbGEktHpPqkHFPdXuCYBEL6iz9kXAhFW",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.primary
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
                     IconButton(
@@ -281,7 +281,7 @@ fun MainScreen(
                         Icon(
                             Icons.Default.ContentCopy,
                             contentDescription = "Copy Monero address",
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 }
