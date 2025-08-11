@@ -96,11 +96,18 @@ fun MainScreen(
         
         OutlinedButton(
             onClick = onNavigateToSettings,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.outlinedButtonColors(
+                contentColor = MaterialTheme.colorScheme.onSurface
+            )
         ) {
-            Icon(Icons.Default.Settings, "Settings")
+            Icon(Icons.Default.Settings, "Settings", tint = MaterialTheme.colorScheme.onSurface)
             Spacer(modifier = Modifier.width(8.dp))
-            Text("Settings")
+            Text(
+                "Settings",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface
+            )
         }
         
         Spacer(modifier = Modifier.height(32.dp))
