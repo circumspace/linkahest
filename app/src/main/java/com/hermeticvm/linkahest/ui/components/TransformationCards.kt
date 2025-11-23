@@ -1,7 +1,6 @@
 package com.hermeticvm.linkahest.ui.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.OpenInBrowser
 import androidx.compose.material3.*
@@ -22,7 +21,7 @@ fun TransformationOptionCard(
     Card(
         onClick = onClick,
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
+        shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
@@ -59,7 +58,7 @@ fun UrlDisplayCard(
         Card(
             onClick = onUrlClick,
             modifier = modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(8.dp),
+            shape = MaterialTheme.shapes.small,
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer
             )
@@ -100,10 +99,11 @@ fun UrlDisplayCard(
         // Non-clickable card for original URLs
         Card(
             modifier = modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(8.dp),
+            shape = MaterialTheme.shapes.small,
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant
-            )
+            ),
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
         ) {
             Column(
                 modifier = Modifier.padding(16.dp),
