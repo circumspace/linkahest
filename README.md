@@ -31,12 +31,19 @@ Transform any link to remove tracking parameters and convert social media links 
   - Convert to **Nitter** instances: `twitter.com/user/status/ID` → `nitter.net/user/status/ID`
 
 - **Reddit**
-  - Convert to **Redlib** instances: `reddit.com/r/subreddit/comments/postID` → `rl.bloat.cat/r/subreddit/comments/postID`
+  - Convert to **Redlib** instances: `reddit.com/r/subreddit/comments/postID` → `redlib.catsarch.com/r/subreddit/comments/postID`
+
+### **Default Instances**
+The app provides curated lists of alternative frontends that you can select from in the settings. Current defaults used when no custom instance is set:
+
+- **Invidious**: `redirect.invidious.io`
+- **Nitter**: `twiiit.com`
+- **Redlib**: `redlib.catsarch.com`
 
 ### **Privacy & Integration**
 - **Seamless Integration** - appears in Android share sheet
 - **Privacy First** - works completely offline, no data collection
-- **Material Design 3** interface with light/dark themes
+- **Material Design 3 (Material Expressive)** interface with light/dark themes
 - **Eink-friendly** - high contrast for eink devices
 
 ## Screenshots

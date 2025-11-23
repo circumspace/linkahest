@@ -24,11 +24,11 @@ class SettingsRepository(private val context: Context) {
     
     val userSettings: Flow<UserSettings> = context.dataStore.data.map { preferences ->
         UserSettings(
-            selectedNitterInstance = preferences[NITTER_INSTANCE_KEY] ?: "nitter.net",
+            selectedNitterInstance = preferences[NITTER_INSTANCE_KEY] ?: "twiiit.com",
             customNitterInstance = preferences[CUSTOM_NITTER_KEY] ?: "",
-            selectedInvidiousInstance = preferences[INVIDIOUS_INSTANCE_KEY] ?: "inv.nadeko.net",
+            selectedInvidiousInstance = preferences[INVIDIOUS_INSTANCE_KEY] ?: "redirect.invidious.io",
             customInvidiousInstance = preferences[CUSTOM_INVIDIOUS_KEY] ?: "",
-            selectedRedlibInstance = preferences[REDLIB_INSTANCE_KEY] ?: "rl.bloat.cat",
+            selectedRedlibInstance = preferences[REDLIB_INSTANCE_KEY] ?: "redlib.catsarch.com",
             customRedlibInstance = preferences[CUSTOM_REDLIB_KEY] ?: ""
         )
     }
