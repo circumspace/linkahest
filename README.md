@@ -6,38 +6,38 @@
 
 A privacy-focused Android app written in Kotlin that transforms social media links to selfhostable alternative frontends before sharing them. First released under GPL v3 in 2025.
 
-Vibed with Goose and Cline.
+Vibe coded with Goose and Cline.
 
 <div align="center">
   <img src="linkahest_icon_512.png" alt="Linkahest App Icon" width="128" height="128">
-</div>`
+</div>
 
 ## Features
 
 Transform any link to remove tracking parameters and convert social media links to privacy-focused alternatives:
 
-### **Universal Tracking Removal** 🧹
-- **Remove tracking parameters** from any URL (UTM codes, social media IDs, analytics, etc.)
+### **Universal Tracking Removal**
+- **Remove tracking parameters** from many URLs (UTM codes, social media IDs, analytics, etc.)
 - **50+ tracking parameters** automatically detected and removed
 - **Cloaked URL detection** - extracts real URLs from redirect services
 - **Works on any URL** - not limited to social media
 
 ### **Platform Transformations**
-- 🔗 **YouTube**
-  - Clean YouTube URLs (remove tracking parameters)
-  - Convert to **Invidious** instances for privacy
-  
-- 🐦 **Twitter/X**
-  - Convert Twitter/X links to **Nitter** instances
-  
-- 🐦 **Reddit**
-  - Convert Reddit links to **Redlib** instances
+- **YouTube**
+  - Clean YouTube URLs (remove tracking parameters): `youtube.com/watch?v=ID&si=tracking` → `youtube.com/watch?v=ID`
+  - Convert to **Invidious** instances for privacy: `youtube.com/watch?v=ID` → `yewtu.be/watch?v=ID`
+
+- **Twitter/X**
+  - Convert to **Nitter** instances: `twitter.com/user/status/ID` → `nitter.net/user/status/ID`
+
+- **Reddit**
+  - Convert to **Redlib** instances: `reddit.com/r/subreddit/comments/postID` → `rl.bloat.cat/r/subreddit/comments/postID`
 
 ### **Privacy & Integration**
-- 📱 **Seamless Integration** - appears in Android share sheet
-- 🔒 **Privacy First** - works completely offline, no data collection
-- 🎨 **Material Design 3** interface with light/dark themes
-- 📖 **Eink-friendly** - high contrast for eink devices
+- **Seamless Integration** - appears in Android share sheet
+- **Privacy First** - works completely offline, no data collection
+- **Material Design 3** interface with light/dark themes
+- **Eink-friendly** - high contrast for eink devices
 
 ## Screenshots
 
@@ -53,7 +53,6 @@ Linkahest is available on [Zapstore](https://zapstore.dev/):
 
 Search for "Linkahest" in Zapstore (on Android).
 
-
 ### Obtainium (or direct APK download)
 Add [release link](https://github.com/circumspace/linkahest/releases) to Obtainium or install APK manually.
 
@@ -66,25 +65,6 @@ Add [release link](https://github.com/circumspace/linkahest/releases) to Obtaini
 5. **Choose transformation** (clean URL, Invidious, Nitter, or Redlib)
 6. **Share the transformed link** to other apps
 7. **Tap the transformed link** for your own needs without sharing it!
-
-## How to Use
-
-1. Share any YouTube or Twitter/X/Reddit link from any app
-2. Select "Linkahest" from the share menu
-3. Choose your preferred transformation
-4. Share the transformed link to other apps
-
-## Link transformations
-
-### YouTube
-- **Strip tracking identifier**: `youtube.com/watch?v=ID&si=tracking` → `youtube.com/watch?v=ID`
-- **Invidious**: `youtube.com/watch?v=ID` → `yewtu.be/watch?v=ID`
-
-### Twitter/X
-- **Nitter**: `twitter.com/user/status/ID` → `nitter.net/user/status/ID`
-
-### Reddit
-- **Redlib**: `reddit.com/r/subreddit/comments/postID` → `rl.bloat.cat/r/subreddit/comments/postID`
 
 ## Building the App
 
@@ -106,12 +86,6 @@ Add [release link](https://github.com/circumspace/linkahest/releases) to Obtaini
 # Build release APK (unsigned)  (**NOTICE**: Release APKs are untested as of yet)
 ./gradlew assembleRelease
 ```
-
-### Generated APK Location
-
-Debug APK: `app/build/outputs/apk/debug/app-debug.apk`
-
-Release APK: `app/build/outputs/apk/release/app-release-unsigned.apk`
 
 ## Project Structure
 
@@ -140,49 +114,19 @@ app/src/main/java/com/hermeticvm/linkahest/
 - **Material Design 3** components
 - **Kotlin Coroutines** for async operations
 
-## Testing
-
-You can test the app by:
-
-1. Installing the debug APK on your device
-2. Sharing any YouTube, Twitter or Reddit link from a browser
-3. Selecting Linkahest from the share options
-
-## Development Notes
-
-- Minimum SDK: API 24 (Android 7.0)
-- Target SDK: API 34 (Android 14)
-- Uses Material 3 dynamic theming
-- Supports both light and dark themes
-
-## Contributing
-
-### Contribution Process
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Make your changes** following the existing code style
-4. **Test your changes** on a real device or emulator
-5. **Commit with clear messages**: `git commit -m 'Add amazing feature'`
-6. **Push to your branch**: `git push origin feature/amazing-feature`
-7. **Open a Pull Request** with a clear description
-
-### Reporting Issues
-- **Bug reports**: Use [GitHub Issues](https://github.com/circumspace/linkahest/issues)
-- **Feature requests**: Open an issue with the "enhancement" label
-
 ## Authors
 
 - **hermeticvm** - Initial work and primary maintainer - [circumspace](https://github.com/circumspace)
 
 ## Donate
 
-If you think this app is helpful, consider supporting me. I do not track any usage metrics whatsoever, so ever sign of support helps in keeping me motivated to maintain this app. Appreciate it!
+If you think this app is helpful, consider supporting me. I do not track any usage metrics whatsoever, so every sign of support helps in keeping me motivated to maintain this app. Appreciate it!
 
 **Bitcoin:** `bc1qjt5n267ka8zuagtmrurez9vjs43hlg3qkqc8sc`
 
 **Bitcoin Lightning:** [hermeticvm@minibits.cash](lightning:hermeticvm@minibits.cash)
 
-**Monero:** `8AuPVyudY9hRedjkRzCisrDq5rnzbUvCTckcQr5dUaGWa1yzo77uMUP8LPpSQvPBbGEktHpPqkHFPdXuCYBEL6iz9kXAhFW
+**Monero:** `8AuPVyudY9hRedjkRzCisrDq5rnzbUvCTckcQr5dUaGWa1yzo77uMUP8LPpSQvPBbGEktHpPqkHFPdXuCYBEL6iz9kXAhFW`
 
 ## License
 
@@ -192,5 +136,4 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 - Built with [Jetpack Compose](https://developer.android.com/jetpack/compose)
 - Uses [Material Design 3](https://m3.material.io/) components
-- Cypherpunks, nostriches and other freedom tech people who keep on inspiring me!
- who
+- I salute all cypherpunks, nostriches and other freedom tech people who keep on inspiring me!
