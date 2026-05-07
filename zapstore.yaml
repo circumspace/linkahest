@@ -9,7 +9,6 @@ tags: [freedom-tech, privacy, android, selfhosted, reddit, youtube, twitter, inv
 license: Apache-2.0
 website: https://github.com/circumspace/linkahest
 
-icon: docs/images/linkahest-icon-512.png
 images:
   - docs/screenshots/main-screen.png
   - docs/screenshots/transform-link.png
