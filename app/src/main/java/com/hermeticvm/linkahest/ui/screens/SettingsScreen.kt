@@ -82,7 +82,7 @@ fun SettingsScreen(
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    text = instance,
+                                    text = instanceLabel(instance),
                                     style = MaterialTheme.typography.bodyMedium
                                 )
                             }
@@ -165,7 +165,7 @@ fun SettingsScreen(
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    text = instance,
+                                    text = instanceLabel(instance),
                                     style = MaterialTheme.typography.bodyMedium
                                 )
                             }
@@ -248,7 +248,7 @@ fun SettingsScreen(
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    text = instance,
+                                    text = instanceLabel(instance),
                                     style = MaterialTheme.typography.bodyMedium
                                 )
                             }
@@ -293,5 +293,13 @@ fun SettingsScreen(
                 }
             }
         }
+    }
+}
+
+private fun instanceLabel(instance: String): String {
+    return when {
+        instance.startsWith("farside.link/") -> "$instance (redirecting default)"
+        instance == "twiiit.com" || instance == "redirect.invidious.io" -> "$instance (redirecting)"
+        else -> instance
     }
 }

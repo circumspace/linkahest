@@ -27,7 +27,7 @@ class LinkahestApplication : Application() {
             runBlocking {
                 val settings = settingsRepository.userSettings.first()
                 if (settings.selectedNitterInstance == "custom") {
-                    settings.customNitterInstance.ifEmpty { "nitter.net" }
+                    settings.customNitterInstance.ifEmpty { "farside.link/nitter" }
                 } else {
                     settings.selectedNitterInstance
                 }
@@ -40,7 +40,7 @@ class LinkahestApplication : Application() {
             runBlocking {
                 val settings = settingsRepository.userSettings.first()
                 if (settings.selectedInvidiousInstance == "custom") {
-                    settings.customInvidiousInstance.ifEmpty { "inv.nadeko.net" }
+                    settings.customInvidiousInstance.ifEmpty { "farside.link/invidious" }
                 } else {
                     settings.selectedInvidiousInstance
                 }
@@ -53,7 +53,7 @@ class LinkahestApplication : Application() {
             runBlocking {
                 val settings = settingsRepository.userSettings.first()
                 if (settings.selectedRedlibInstance == "custom") {
-                    settings.customRedlibInstance.ifEmpty { "rl.bloat.cat" }
+                    settings.customRedlibInstance.ifEmpty { "farside.link/redlib" }
                 } else {
                     settings.selectedRedlibInstance
                 }

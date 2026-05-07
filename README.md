@@ -36,9 +36,9 @@ Transform any link to remove tracking parameters and convert social media links 
 ### **Default Instances**
 The app provides curated lists of alternative frontends that you can select from in the settings. Current defaults used when no custom instance is set:
 
-- **Invidious**: `redirect.invidious.io`
-- **Nitter**: `twiiit.com`
-- **Redlib**: `redlib.catsarch.com`
+- **Invidious**: `farside.link/invidious`
+- **Nitter**: `farside.link/nitter`
+- **Redlib**: `farside.link/redlib`
 
 ### **Privacy & Integration**
 - **Seamless Integration** - appears in Android share sheet
