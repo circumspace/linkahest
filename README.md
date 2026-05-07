@@ -33,12 +33,16 @@ Transform any link to remove tracking parameters and convert social media links 
 - **Reddit**
   - Convert to **Redlib** instances: `reddit.com/r/subreddit/comments/postID` → `redlib.catsarch.com/r/subreddit/comments/postID`
 
+- **Medium**
+  - Convert to **Scribe** instances: `medium.com/@user/story` → `scribe.rip/@user/story`
+
 ### **Default Instances**
 The app provides curated lists of alternative frontends that you can select from in the settings. Current defaults used when no custom instance is set:
 
 - **Invidious**: `farside.link/invidious`
 - **Nitter**: `farside.link/nitter`
 - **Redlib**: `farside.link/redlib`
+- **Scribe**: `farside.link/scribe`
 
 ### **Privacy & Integration**
 - **Seamless Integration** - appears in Android share sheet
@@ -66,10 +70,10 @@ Add [release link](https://github.com/circumspace/linkahest/releases) to Obtaini
 ## Quick Start
 
 1. **Install the app** from Zapstore, Obtainium or just download the APK
-2. **Share any link** from YouTube, Twitter/X, or Reddit
+2. **Share any link** from YouTube, Twitter/X, Reddit, or Medium
 3. **Select "Linkahest"** from the share menu
 4. **Optional:** Pin Linkahest for more frequent use!
-5. **Choose transformation** (clean URL, Invidious, Nitter, or Redlib)
+5. **Choose transformation** (clean URL, Invidious, Nitter, Redlib, or Scribe)
 6. **Share the transformed link** to other apps
 7. **Tap the transformed link** for your own needs without sharing it!
 

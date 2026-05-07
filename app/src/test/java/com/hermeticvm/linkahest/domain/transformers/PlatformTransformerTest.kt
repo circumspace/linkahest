@@ -59,6 +59,27 @@ class PlatformTransformerTest {
     }
 
     @Test
+    fun convertsMediumToConfiguredScribeInstanceAndRemovesTracking() = runTest {
+        val transformer = MediumTransformer { "farside.link/scribe" }
+
+        assertEquals(
+            "https://farside.link/scribe/@ftrain/big-data-small-effort-b62607a43a8c",
+            transformer.transform(
+                "https://medium.com/@ftrain/big-data-small-effort-b62607a43a8c?source=share&utm_source=email",
+                TransformationOptions.MEDIUM_SCRIBE
+            )
+        )
+    }
+
+    @Test
+    fun mediumOnlyOffersScribeConversion() {
+        val transformer = MediumTransformer { "farside.link/scribe" }
+        val options = transformer.getTransformationOptions("https://medium.com/@ftrain/story")
+
+        assertEquals(listOf(TransformationOptions.MEDIUM_SCRIBE), options)
+    }
+
+    @Test
     fun universalCleanerOnlyAppearsWhenTrackingExists() {
         val transformer = UniversalCleanerTransformer()
 

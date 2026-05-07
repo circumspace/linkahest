@@ -39,7 +39,7 @@ object TrackingCleaner {
         "mc_cid", "mc_eid",
         
         // Generic tracking
-        "ek", "sc", "ef_id", "ev", "trk", "cmp", "ch", "rid", "jid",
+        "ek", "sc", "source", "ef_id", "ev", "trk", "cmp", "ch", "rid", "jid",
         "partner", "aff", "ref", "subid", "clickid", "campaign_id",
         "ad_id", "creative", "keyword", "placement", "position",
         "device", "matchtype", "network", "target", "adgroupid"

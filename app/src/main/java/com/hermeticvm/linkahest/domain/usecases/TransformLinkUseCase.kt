@@ -7,6 +7,7 @@ import com.hermeticvm.linkahest.domain.transformers.LinkTransformer
 import com.hermeticvm.linkahest.domain.transformers.YouTubeTransformer
 import com.hermeticvm.linkahest.domain.transformers.TwitterTransformer
 import com.hermeticvm.linkahest.domain.transformers.RedditTransformer
+import com.hermeticvm.linkahest.domain.transformers.MediumTransformer
 import com.hermeticvm.linkahest.domain.transformers.UniversalCleanerTransformer
 
 class TransformLinkUseCase(
@@ -14,6 +15,7 @@ class TransformLinkUseCase(
     private val youtubeTransformer: YouTubeTransformer,
     private val twitterTransformer: TwitterTransformer,
     private val redditTransformer: RedditTransformer,
+    private val mediumTransformer: MediumTransformer,
     private val universalCleanerTransformer: UniversalCleanerTransformer
 ) {
     
@@ -21,6 +23,7 @@ class TransformLinkUseCase(
         youtubeTransformer,
         twitterTransformer,
         redditTransformer,
+        mediumTransformer,
         universalCleanerTransformer
     )
     

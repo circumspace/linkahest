@@ -25,4 +25,10 @@ object TransformationOptions {
         label = "Reddit to Redlib",
         description = "Convert to privacy-focused Redlib instance"
     )
+
+    val MEDIUM_SCRIBE = TransformationOption(
+        type = "medium_scribe",
+        label = "Medium to Scribe",
+        description = "Convert to privacy-focused Scribe instance"
+    )
 }
