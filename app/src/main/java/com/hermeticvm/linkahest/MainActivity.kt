@@ -13,7 +13,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.hermeticvm.linkahest.data.repository.LinkTransformationRepository
 import com.hermeticvm.linkahest.data.repository.SettingsRepository
+import com.hermeticvm.linkahest.ui.screens.HistoryScreen
+import com.hermeticvm.linkahest.ui.screens.HistoryViewModel
+import com.hermeticvm.linkahest.ui.screens.HistoryViewModelFactory
 import com.hermeticvm.linkahest.ui.screens.SettingsScreen
 import com.hermeticvm.linkahest.ui.screens.SettingsViewModel
 import com.hermeticvm.linkahest.ui.screens.SettingsViewModelFactory
@@ -39,6 +43,8 @@ class MainActivity : ComponentActivity() {
 fun AppNavigation() {
     val navController = rememberNavController()
     val context = LocalContext.current
+    val application = context.applicationContext as LinkahestApplication
+    val historyRepository: LinkTransformationRepository = application.repository
     val settingsRepository = SettingsRepository(context)
     
     NavHost(
@@ -49,6 +55,9 @@ fun AppNavigation() {
             MainScreen(
                 onNavigateToSettings = {
                     navController.navigate("settings")
+                },
+                onNavigateToHistory = {
+                    navController.navigate("history")
                 }
             )
         }
@@ -58,6 +67,17 @@ fun AppNavigation() {
             )
             SettingsScreen(
                 viewModel = settingsViewModel,
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable("history") {
+            val historyViewModel: HistoryViewModel = viewModel(
+                factory = HistoryViewModelFactory(historyRepository)
+            )
+            HistoryScreen(
+                viewModel = historyViewModel,
                 onNavigateBack = {
                     navController.popBackStack()
                 }
