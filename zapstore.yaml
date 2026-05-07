@@ -1,17 +1,18 @@
-name: Linkahest
+# Migrated from zapstore-cli format
+
 repository: https://github.com/circumspace/linkahest
+release_source: "app/build/outputs/apk/debug/*.apk"
+
+name: Linkahest
 summary: Clean shared links and open supported services through alternative frontends.
-homepage: https://github.com/circumspace/linkahest
+tags: [freedom-tech, privacy, android, selfhosted, reddit, youtube, twitter, invidious, redlib, nitter]
+license: Apache-2.0
+website: https://github.com/circumspace/linkahest
+
+icon: docs/images/linkahest-icon-512.png
 images:
   - docs/screenshots/main-screen.png
   - docs/screenshots/transform-link.png
   - docs/screenshots/transform-link-final.png
-icon: docs/images/linkahest-icon-512.png
-tags: freedom-tech privacy android selfhosted reddit youtube twitter invidious redlib nitter
-license: Apache-2.0
-remote_metadata:
-  - github
-blossom_servers:
-  - https://cdn.zapstore.dev
-assets: # for local
-  - app/build/outputs/apk/debug/.*.apk
+
+metadata_sources: [github]
