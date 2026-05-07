@@ -52,6 +52,7 @@ fun HistoryScreen(
     viewModel: HistoryViewModel = viewModel(),
     onNavigateBack: () -> Unit = {}
 ) {
+    val historyEnabled by viewModel.historyEnabled.collectAsState()
     val transformations by viewModel.transformations.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
@@ -66,7 +67,7 @@ fun HistoryScreen(
                     }
                 },
                 actions = {
-                    if (transformations.isNotEmpty()) {
+                    if (historyEnabled && transformations.isNotEmpty()) {
                         TextButton(onClick = viewModel::clearHistory) {
                             Icon(Icons.Default.DeleteSweep, contentDescription = null)
                             Spacer(modifier = Modifier.width(4.dp))
@@ -78,7 +79,25 @@ fun HistoryScreen(
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { paddingValues ->
-        if (transformations.isEmpty()) {
+        if (!historyEnabled) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "History is disabled",
+                    style = MaterialTheme.typography.headlineSmall
+                )
+                Text(
+                    text = "Enable history in Settings to store transformed links on this device.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        } else if (transformations.isEmpty()) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()

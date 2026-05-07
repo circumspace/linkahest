@@ -16,7 +16,8 @@ class TransformLinkUseCase(
     private val twitterTransformer: TwitterTransformer,
     private val redditTransformer: RedditTransformer,
     private val mediumTransformer: MediumTransformer,
-    private val universalCleanerTransformer: UniversalCleanerTransformer
+    private val universalCleanerTransformer: UniversalCleanerTransformer,
+    private val shouldSaveHistory: suspend () -> Boolean = { true }
 ) {
     
     private val transformers: List<LinkTransformer> = listOf(
@@ -56,7 +57,7 @@ class TransformLinkUseCase(
     suspend fun transformAndSave(url: String, option: TransformationOption): String {
         val transformedUrl = transformUrl(url, option)
         
-        if (transformedUrl != url) {
+        if (transformedUrl != url && shouldSaveHistory()) {
             val transformation = LinkTransformation(
                 originalUrl = url,
                 transformedUrl = transformedUrl,

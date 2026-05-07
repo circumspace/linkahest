@@ -15,7 +15,7 @@ object TrackingCleaner {
         "fbclid", "fb_source", "fb_ref",
         
         // YouTube
-        "feature", "si", "pp", "ref",
+        "feature", "si", "pp", "ref", "ref_",
         
         // Twitter/X
         "t", "s", "ref_src", "ref_url",

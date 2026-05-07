@@ -55,12 +55,30 @@ class LinkahestApplication : Application() {
         }
     }
     
-    val mediumTransformer by lazy { MediumTransformer() }
+    val mediumTransformer by lazy {
+        MediumTransformer {
+            val settings = settingsRepository.userSettings.first()
+            if (settings.selectedScribeInstance == "custom") {
+                settings.customScribeInstance.ifEmpty { "farside.link/scribe" }
+            } else {
+                settings.selectedScribeInstance
+            }
+        }
+    }
 
     val universalCleanerTransformer by lazy { UniversalCleanerTransformer() }
     
     // Use cases
     val transformLinkUseCase by lazy { 
-        TransformLinkUseCase(repository, youtubeTransformer, twitterTransformer, redditTransformer, mediumTransformer, universalCleanerTransformer)
+        TransformLinkUseCase(
+            repository,
+            youtubeTransformer,
+            twitterTransformer,
+            redditTransformer,
+            mediumTransformer,
+            universalCleanerTransformer
+        ) {
+            settingsRepository.userSettings.first().historyEnabled
+        }
     }
 }

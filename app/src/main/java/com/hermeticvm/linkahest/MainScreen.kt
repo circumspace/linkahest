@@ -21,6 +21,8 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -30,11 +32,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.shape.RoundedCornerShape
 
 @Composable
 fun MainScreen(
+    historyEnabled: Boolean = true,
     onNavigateToSettings: () -> Unit = {},
-    onNavigateToHistory: () -> Unit = {}
+    onNavigateToHistory: () -> Unit = {},
+    onNavigateToHistorySettings: () -> Unit = onNavigateToSettings
 ) {
     val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current
@@ -54,7 +59,9 @@ fun MainScreen(
         Image(
             painter = painterResource(id = R.drawable.ic_linkahest_logo),
             contentDescription = "Linkahest logo",
-            modifier = Modifier.size(96.dp)
+            modifier = Modifier
+                .size(96.dp)
+                .clip(RoundedCornerShape(24.dp))
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -98,12 +105,38 @@ fun MainScreen(
                 Spacer(modifier = Modifier.height(8.dp))
                 
                 Text(
-                    text = "1. Share a YouTube, Twitter/X, or Reddit link from any app\n" +
+                    text = "1. Share a link from a supported service\n" +
                           "2. Choose Linkahest from the share menu\n" +
                           "3. Select your preferred transformation\n" +
                           "4. Share the transformed link",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        ElevatedCard(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.secondaryContainer
+            )
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(
+                    text = "Supported services",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+
+                Text(
+                    text = "YouTube · Twitter/X · Reddit · Medium",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
         }
@@ -126,14 +159,16 @@ fun MainScreen(
         Spacer(modifier = Modifier.height(12.dp))
 
         OutlinedButton(
-            onClick = onNavigateToHistory,
-            modifier = Modifier.fillMaxWidth(),
+            onClick = if (historyEnabled) onNavigateToHistory else onNavigateToHistorySettings,
+            modifier = Modifier
+                .fillMaxWidth()
+                .alpha(if (historyEnabled) 1f else 0.56f),
             shape = MaterialTheme.shapes.large
         ) {
             Icon(Icons.Default.History, "History")
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                "History",
+                if (historyEnabled) "History" else "History disabled",
                 style = MaterialTheme.typography.bodyLarge
             )
         }

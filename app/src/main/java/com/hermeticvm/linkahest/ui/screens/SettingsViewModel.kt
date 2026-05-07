@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.hermeticvm.linkahest.data.models.UserSettings
+import com.hermeticvm.linkahest.data.repository.LinkTransformationRepository
 import com.hermeticvm.linkahest.data.repository.SettingsRepository
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -35,11 +36,13 @@ data class InstanceHealth(
 enum class InstanceService(val testPath: String) {
     Nitter("/jack"),
     Invidious("/watch?v=dQw4w9WgXcQ"),
-    Redlib("/r/popular")
+    Redlib("/r/popular"),
+    Scribe("/@ftrain/big-data-small-effort-b62607a43a8c")
 }
 
 class SettingsViewModel(
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val historyRepository: LinkTransformationRepository
 ) : ViewModel() {
     
     private val _uiState = MutableStateFlow(UserSettings())
@@ -91,6 +94,33 @@ class SettingsViewModel(
     fun updateCustomRedlibInstance(instance: String) {
         viewModelScope.launch {
             settingsRepository.updateCustomRedlibInstance(instance)
+        }
+    }
+
+    fun selectScribeInstance(instance: String) {
+        viewModelScope.launch {
+            settingsRepository.updateScribeInstance(instance)
+        }
+    }
+
+    fun updateCustomScribeInstance(instance: String) {
+        viewModelScope.launch {
+            settingsRepository.updateCustomScribeInstance(instance)
+        }
+    }
+
+    fun updateThemeMode(themeMode: String) {
+        viewModelScope.launch {
+            settingsRepository.updateThemeMode(themeMode)
+        }
+    }
+
+    fun updateHistoryEnabled(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.updateHistoryEnabled(enabled)
+            if (!enabled) {
+                historyRepository.clearAllTransformations()
+            }
         }
     }
 
@@ -219,12 +249,13 @@ fun isRedirectingInstance(instance: String): Boolean {
 }
 
 class SettingsViewModelFactory(
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val historyRepository: LinkTransformationRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SettingsViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return SettingsViewModel(settingsRepository) as T
+            return SettingsViewModel(settingsRepository, historyRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

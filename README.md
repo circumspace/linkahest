@@ -8,10 +8,6 @@ A privacy-focused Android app written in Kotlin that transforms social media lin
 
 Vibe coded with ~~Goose~~ and Cline.
 
-<div align="center">
-  <img src="linkahest_icon_512.png" alt="Linkahest App Icon" width="128" height="128">
-</div>
-
 ## Features
 
 Transform any link to remove tracking parameters and convert social media links to privacy-focused alternatives:
