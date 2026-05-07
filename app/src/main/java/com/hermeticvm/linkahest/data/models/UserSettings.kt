@@ -24,39 +24,28 @@ object DefaultInstances {
     val NITTER_INSTANCES = listOf(
         "farside.link/nitter",
         "twiiit.com",
-        "nitter.catsarch.com",
         "nitter.tiekoetter.com",
         "nitter.privacyredirect.com",
-        "xcancel.com",
         "nitter.net",
-        "nitter.space",
-        "nitter.poast.org"
+        "nitter.space"
     )
     // list of instances: https://docs.invidious.io/instances/
     val INVIDIOUS_INSTANCES = listOf(
         "farside.link/invidious",
         "redirect.invidious.io",
-        "inv.nadeko.net",
         "invidious.nerdvpn.de",
-        "yt.chocolatemoo53.com",
         "inv.thepixora.com"
     )
     // list of instances: https://github.com/redlib-org/redlib-instances/blob/main/instances.md
     val REDLIB_INSTANCES = listOf(
         "farside.link/redlib",
         "rl.bloat.cat",
-        "redlib.catsarch.com",
         "redlib.perennialte.ch",
         "redlib.r4fo.com",
         "red.artemislena.eu",
-        "redlib.cow.rip",
-        "redlib.nadeko.net",
         "redlib.privadency.com"
     )
     val SCRIBE_INSTANCES = listOf(
-        "farside.link/scribe",
-        "scribe.rip",
-        "scribe.citizen4.eu",
-        "scribe.bus-hit.me"
+        "farside.link/scribe"
     )
 }
