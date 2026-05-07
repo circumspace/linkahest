@@ -327,6 +327,6 @@ private fun instanceLabel(instance: String): String {
     return when {
         normalized.startsWith("farside.link/") -> "$instance (redirecting default)"
         isRedirectingInstance(normalized) -> "$instance (redirecting)"
-        else -> ""
+        else -> instance
     }
 }
