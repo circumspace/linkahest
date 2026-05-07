@@ -1,9 +1,5 @@
 # Linkahest
 
-<p align="center">
-  <img src="docs/images/linkahest-icon-512.png" width="160" height="160" alt="Linkahest icon">
-</p>
-
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Android](https://img.shields.io/badge/Platform-Android-green.svg)](https://www.android.com)
 [![Kotlin](https://img.shields.io/badge/Language-Kotlin-purple.svg)](https://kotlinlang.org)
@@ -11,6 +7,8 @@
 Linkahest cleans shared links before they leave your phone. Send YouTube, Twitter/X, Reddit, Medium, and other URLs through it to strip trackers or open them through alternative frontends.
 
 It runs locally, requests no network permission, and keeps history off unless you turn it on.
+
+![Home screen](docs/screenshots/main-screen.png)
 
 ## Features
 
@@ -22,11 +20,11 @@ It runs locally, requests no network permission, and keeps history off unless yo
 - Keeps transformed-link history disabled by default.
 - Supports light, dark, and system themes.
 
-## Screenshots
+## Additional Screenshots
 
-| Home | Transform Link | Result | Settings |
-|:----:|:--------------:|:------:|:--------:|
-| ![Home screen](docs/screenshots/main-screen.png) | ![Transform link](docs/screenshots/transform-link.png) | ![Transformed result](docs/screenshots/transform-link-final.png) | ![Settings](docs/screenshots/settings-new.png) |
+| Transform Link | Result | Settings |
+|:--------------:|:------:|:--------:|
+| ![Transform link](docs/screenshots/transform-link.png) | ![Transformed result](docs/screenshots/transform-link-final.png) | ![Settings](docs/screenshots/settings-new.png) |
 
 ## Installation
 
