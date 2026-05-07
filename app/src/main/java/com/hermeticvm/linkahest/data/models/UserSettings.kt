@@ -44,6 +44,7 @@ object DefaultInstances {
     // list of instances: https://github.com/redlib-org/redlib-instances/blob/main/instances.md
     val REDLIB_INSTANCES = listOf(
         "farside.link/redlib",
+        "rl.bloat.cat",
         "redlib.catsarch.com",
         "redlib.perennialte.ch",
         "redlib.r4fo.com",
