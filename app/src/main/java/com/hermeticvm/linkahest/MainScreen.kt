@@ -55,8 +55,10 @@ fun MainScreen(
             text = "LINKAHEST",
             style = MaterialTheme.typography.displayLarge.copy(
                 fontFamily = FontFamily.SansSerif,
-                fontSize = 64.sp
+                fontSize = 64.sp,
+                fontWeight = FontWeight.Black
             ),
+            color = MaterialTheme.colorScheme.primary,
             textAlign = TextAlign.Center
         )
         
@@ -70,7 +72,7 @@ fun MainScreen(
         
         Spacer(modifier = Modifier.height(32.dp))
         
-        Card(
+        ElevatedCard(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer
@@ -100,19 +102,16 @@ fun MainScreen(
         
         Spacer(modifier = Modifier.height(32.dp))
         
-        OutlinedButton(
+        FilledTonalButton(
             onClick = onNavigateToSettings,
             modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.outlinedButtonColors(
-                contentColor = MaterialTheme.colorScheme.onSurface
-            )
+            shape = MaterialTheme.shapes.large
         ) {
-            Icon(Icons.Default.Settings, "Settings", tint = MaterialTheme.colorScheme.onSurface)
+            Icon(Icons.Default.Settings, "Settings")
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 "Settings",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurface
+                style = MaterialTheme.typography.bodyLarge
             )
         }
 
@@ -121,16 +120,13 @@ fun MainScreen(
         OutlinedButton(
             onClick = onNavigateToHistory,
             modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.outlinedButtonColors(
-                contentColor = MaterialTheme.colorScheme.onSurface
-            )
+            shape = MaterialTheme.shapes.large
         ) {
-            Icon(Icons.Default.History, "History", tint = MaterialTheme.colorScheme.onSurface)
+            Icon(Icons.Default.History, "History")
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 "History",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurface
+                style = MaterialTheme.typography.bodyLarge
             )
         }
         
