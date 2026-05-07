@@ -1,6 +1,8 @@
 package com.hermeticvm.linkahest.ui.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +14,7 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -21,6 +24,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -39,6 +43,7 @@ fun SettingsScreen(
     onNavigateBack: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val instanceHealth by viewModel.instanceHealth.collectAsState()
 
     Scaffold(
         topBar = {
@@ -68,6 +73,15 @@ fun SettingsScreen(
                 customInstance = uiState.customNitterInstance,
                 customLabel = "Custom Nitter URL",
                 customPlaceholder = "e.g., nitter.example.com",
+                instanceHealth = instanceHealth,
+                onCheckAvailability = {
+                    viewModel.checkInstances(
+                        service = InstanceService.Nitter,
+                        instances = DefaultInstances.NITTER_INSTANCES,
+                        customInstance = uiState.customNitterInstance
+                    )
+                },
+                onCancelAvailabilityCheck = viewModel::cancelInstanceChecks,
                 onSelectInstance = viewModel::selectNitterInstance,
                 onCustomInstanceChange = viewModel::updateCustomNitterInstance
             )
@@ -80,6 +94,15 @@ fun SettingsScreen(
                 customInstance = uiState.customInvidiousInstance,
                 customLabel = "Custom Invidious URL",
                 customPlaceholder = "e.g., invidious.example.com",
+                instanceHealth = instanceHealth,
+                onCheckAvailability = {
+                    viewModel.checkInstances(
+                        service = InstanceService.Invidious,
+                        instances = DefaultInstances.INVIDIOUS_INSTANCES,
+                        customInstance = uiState.customInvidiousInstance
+                    )
+                },
+                onCancelAvailabilityCheck = viewModel::cancelInstanceChecks,
                 onSelectInstance = viewModel::selectInvidiousInstance,
                 onCustomInstanceChange = viewModel::updateCustomInvidiousInstance
             )
@@ -92,6 +115,15 @@ fun SettingsScreen(
                 customInstance = uiState.customRedlibInstance,
                 customLabel = "Custom Redlib URL",
                 customPlaceholder = "e.g., redlib.example.com",
+                instanceHealth = instanceHealth,
+                onCheckAvailability = {
+                    viewModel.checkInstances(
+                        service = InstanceService.Redlib,
+                        instances = DefaultInstances.REDLIB_INSTANCES,
+                        customInstance = uiState.customRedlibInstance
+                    )
+                },
+                onCancelAvailabilityCheck = viewModel::cancelInstanceChecks,
                 onSelectInstance = viewModel::selectRedlibInstance,
                 onCustomInstanceChange = viewModel::updateCustomRedlibInstance
             )
@@ -108,13 +140,23 @@ private fun InstanceSettingsCard(
     customInstance: String,
     customLabel: String,
     customPlaceholder: String,
+    instanceHealth: Map<String, InstanceHealth>,
+    onCheckAvailability: () -> Unit,
+    onCancelAvailabilityCheck: () -> Unit,
     onSelectInstance: (String) -> Unit,
     onCustomInstanceChange: (String) -> Unit
 ) {
+    val candidateInstances = (instances + customInstance)
+        .map(::normalizeInstance)
+        .filter { it.isNotBlank() && !isRedirectingInstance(it) }
+    val isChecking = candidateInstances.any {
+        instanceHealth[it]?.status == InstanceHealthStatus.Checking
+    }
+
     Card {
         Column(
             modifier = Modifier.padding(16.dp),
-            verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
                 text = title,
@@ -130,7 +172,7 @@ private fun InstanceSettingsCard(
             Column(modifier = Modifier.selectableGroup()) {
                 instances.forEach { instance ->
                     InstanceRow(
-                        label = instanceLabel(instance),
+                        label = instanceLabel(instance, instanceHealth[normalizeInstance(instance)]),
                         selected = selectedInstance == instance,
                         onClick = { onSelectInstance(instance) }
                     )
@@ -143,6 +185,9 @@ private fun InstanceSettingsCard(
                 )
 
                 if (selectedInstance == "custom") {
+                    val normalizedCustomInstance = normalizeInstance(customInstance)
+                    val customHealthText = healthText(instanceHealth[normalizedCustomInstance])
+
                     OutlinedTextField(
                         value = customInstance,
                         onValueChange = onCustomInstanceChange,
@@ -153,6 +198,37 @@ private fun InstanceSettingsCard(
                             .padding(start = 32.dp),
                         singleLine = true
                     )
+
+                    if (normalizedCustomInstance.isNotBlank() &&
+                        !isRedirectingInstance(normalizedCustomInstance) &&
+                        customHealthText.isNotBlank()
+                    ) {
+                        Text(
+                            text = customHealthText,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(start = 32.dp, top = 4.dp)
+                        )
+                    }
+                }
+            }
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Button(
+                    onClick = onCheckAvailability,
+                    enabled = !isChecking,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text("Check availability")
+                }
+
+                if (isChecking) {
+                    TextButton(onClick = onCancelAvailabilityCheck) {
+                        Text("Cancel")
+                    }
                 }
             }
         }
@@ -165,7 +241,7 @@ private fun InstanceRow(
     selected: Boolean,
     onClick: () -> Unit
 ) {
-    androidx.compose.foundation.layout.Row(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .selectable(
@@ -188,10 +264,23 @@ private fun InstanceRow(
     }
 }
 
-private fun instanceLabel(instance: String): String {
+private fun instanceLabel(instance: String, health: InstanceHealth?): String {
+    val normalized = normalizeInstance(instance)
     return when {
-        instance.startsWith("farside.link/") -> "$instance (redirecting default)"
-        instance == "twiiit.com" || instance == "redirect.invidious.io" -> "$instance (redirecting)"
-        else -> instance
+        normalized.startsWith("farside.link/") -> "$instance (redirecting default)"
+        isRedirectingInstance(normalized) -> "$instance (redirecting)"
+        else -> "$instance${healthText(health).takeIf { it.isNotBlank() }?.let { " · $it" } ?: ""}"
+    }
+}
+
+private fun healthText(health: InstanceHealth?): String {
+    return when (health?.status) {
+        InstanceHealthStatus.Checking -> "checking"
+        InstanceHealthStatus.Available -> listOfNotNull(
+            "available",
+            health.latencyMs?.let { "${it} ms" }
+        ).joinToString(" · ")
+        InstanceHealthStatus.Unavailable -> health.error?.let { "unavailable · $it" } ?: "unavailable"
+        else -> ""
     }
 }
