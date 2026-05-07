@@ -15,7 +15,7 @@ object TrackingCleaner {
         "fbclid", "fb_source", "fb_ref",
         
         // YouTube
-        "feature", "si", "pp", "ref",
+        "feature", "si", "pp", "ref", "ref_",
         
         // Twitter/X
         "t", "s", "ref_src", "ref_url",
@@ -39,16 +39,16 @@ object TrackingCleaner {
         "mc_cid", "mc_eid",
         
         // Generic tracking
-        "ek", "sc", "ef_id", "ev", "trk", "cmp", "ch", "rid", "jid",
+        "ek", "sc", "source", "ef_id", "ev", "trk", "cmp", "ch", "rid", "jid",
         "partner", "aff", "ref", "subid", "clickid", "campaign_id",
         "ad_id", "creative", "keyword", "placement", "position",
         "device", "matchtype", "network", "target", "adgroupid"
     )
     
     private val CLOAKED_PATH_PATTERNS = listOf(
-        Regex("""/(?:l|r|go|out|track|clk)/https?://"""),
-        Regex("""/(?:redirect|redir)/https?://"""),
-        Regex("""/(?:click|link)/https?://""")
+        Regex("""/(?:l|r|go|out|track|clk)/(https?://.+)$"""),
+        Regex("""/(?:redirect|redir)/(https?://.+)$"""),
+        Regex("""/(?:click|link)/(https?://.+)$""")
     )
     
     fun cleanUrl(url: String): String {
@@ -125,13 +125,11 @@ object TrackingCleaner {
     private fun handleCloakedUrls(uri: Uri, cleanQuery: String?, cleanFragment: String?): String {
         val urlString = uri.toString()
         
-        // Check for cloaked URLs
         for (pattern in CLOAKED_PATH_PATTERNS) {
             val match = pattern.find(urlString)
             if (match != null) {
-                // Extract the actual URL after the cloaking prefix
-                val actualUrl = urlString.substring(match.range.last - 6)
-                return cleanUrl(actualUrl) // Recursively clean the actual URL
+                val actualUrl = URLDecoder.decode(match.groupValues[1], "UTF-8")
+                return cleanUrl(actualUrl)
             }
         }
         

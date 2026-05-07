@@ -7,6 +7,7 @@ import com.hermeticvm.linkahest.domain.transformers.LinkTransformer
 import com.hermeticvm.linkahest.domain.transformers.YouTubeTransformer
 import com.hermeticvm.linkahest.domain.transformers.TwitterTransformer
 import com.hermeticvm.linkahest.domain.transformers.RedditTransformer
+import com.hermeticvm.linkahest.domain.transformers.MediumTransformer
 import com.hermeticvm.linkahest.domain.transformers.UniversalCleanerTransformer
 
 class TransformLinkUseCase(
@@ -14,13 +15,16 @@ class TransformLinkUseCase(
     private val youtubeTransformer: YouTubeTransformer,
     private val twitterTransformer: TwitterTransformer,
     private val redditTransformer: RedditTransformer,
-    private val universalCleanerTransformer: UniversalCleanerTransformer
+    private val mediumTransformer: MediumTransformer,
+    private val universalCleanerTransformer: UniversalCleanerTransformer,
+    private val shouldSaveHistory: suspend () -> Boolean = { true }
 ) {
     
     private val transformers: List<LinkTransformer> = listOf(
         youtubeTransformer,
         twitterTransformer,
         redditTransformer,
+        mediumTransformer,
         universalCleanerTransformer
     )
     
@@ -43,15 +47,17 @@ class TransformLinkUseCase(
     }
     
     suspend fun transformUrl(url: String, option: TransformationOption): String {
-        return transformers.firstOrNull { transformer ->
-            transformer.canTransform(url) && transformer.getTransformationOptions(url).any { it.type == option.type }
-        }?.transform(url, option) ?: url
+        val transformer = transformers.firstOrNull { transformer ->
+            transformer.getTransformationOptions(url).any { it.type == option.type }
+        }
+
+        return transformer?.transform(url, option) ?: url
     }
     
     suspend fun transformAndSave(url: String, option: TransformationOption): String {
         val transformedUrl = transformUrl(url, option)
         
-        if (transformedUrl != url) {
+        if (transformedUrl != url && shouldSaveHistory()) {
             val transformation = LinkTransformation(
                 originalUrl = url,
                 transformedUrl = transformedUrl,

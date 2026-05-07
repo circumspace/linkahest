@@ -6,19 +6,19 @@ plugins {
 }
 
 android {
-    namespace 'com.hermeticvm.linkahest'
+    namespace = 'com.hermeticvm.linkahest'
     compileSdk 36
 
     defaultConfig {
         applicationId "com.hermeticvm.linkahest"
         minSdk 24
         targetSdk 36
-        versionCode 8
-        versionName "0.4.0 - Improved UI"
+        versionCode 9
+        versionName "0.5.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
-            useSupportLibrary true
+            useSupportLibrary = true
         }
     }
 
@@ -36,7 +36,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        compose true
+        compose = true
     }
 
     packaging {
@@ -74,6 +74,8 @@ dependencies {
 
     // Testing
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.14.1'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
     androidTestImplementation platform('androidx.compose:compose-bom:2024.09.02')

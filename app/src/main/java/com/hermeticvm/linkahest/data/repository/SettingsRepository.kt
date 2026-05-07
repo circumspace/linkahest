@@ -3,6 +3,7 @@ package com.hermeticvm.linkahest.data.repository
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -20,16 +21,24 @@ class SettingsRepository(private val context: Context) {
         private val CUSTOM_INVIDIOUS_KEY = stringPreferencesKey("custom_invidious")
         private val REDLIB_INSTANCE_KEY = stringPreferencesKey("redlib_instance")
         private val CUSTOM_REDLIB_KEY = stringPreferencesKey("custom_redlib")
+        private val SCRIBE_INSTANCE_KEY = stringPreferencesKey("scribe_instance")
+        private val CUSTOM_SCRIBE_KEY = stringPreferencesKey("custom_scribe")
+        private val THEME_MODE_KEY = stringPreferencesKey("theme_mode")
+        private val HISTORY_ENABLED_KEY = booleanPreferencesKey("history_enabled")
     }
     
     val userSettings: Flow<UserSettings> = context.dataStore.data.map { preferences ->
         UserSettings(
-            selectedNitterInstance = preferences[NITTER_INSTANCE_KEY] ?: "twiiit.com",
+            selectedNitterInstance = preferences[NITTER_INSTANCE_KEY] ?: "farside.link/nitter",
             customNitterInstance = preferences[CUSTOM_NITTER_KEY] ?: "",
-            selectedInvidiousInstance = preferences[INVIDIOUS_INSTANCE_KEY] ?: "redirect.invidious.io",
+            selectedInvidiousInstance = preferences[INVIDIOUS_INSTANCE_KEY] ?: "farside.link/invidious",
             customInvidiousInstance = preferences[CUSTOM_INVIDIOUS_KEY] ?: "",
-            selectedRedlibInstance = preferences[REDLIB_INSTANCE_KEY] ?: "redlib.catsarch.com",
-            customRedlibInstance = preferences[CUSTOM_REDLIB_KEY] ?: ""
+            selectedRedlibInstance = preferences[REDLIB_INSTANCE_KEY] ?: "farside.link/redlib",
+            customRedlibInstance = preferences[CUSTOM_REDLIB_KEY] ?: "",
+            selectedScribeInstance = preferences[SCRIBE_INSTANCE_KEY] ?: "farside.link/scribe",
+            customScribeInstance = preferences[CUSTOM_SCRIBE_KEY] ?: "",
+            themeMode = preferences[THEME_MODE_KEY] ?: "system",
+            historyEnabled = preferences[HISTORY_ENABLED_KEY] ?: false
         )
     }
     
@@ -66,6 +75,30 @@ class SettingsRepository(private val context: Context) {
     suspend fun updateCustomRedlibInstance(instance: String) {
         context.dataStore.edit { preferences ->
             preferences[CUSTOM_REDLIB_KEY] = instance
+        }
+    }
+
+    suspend fun updateScribeInstance(instance: String) {
+        context.dataStore.edit { preferences ->
+            preferences[SCRIBE_INSTANCE_KEY] = instance
+        }
+    }
+
+    suspend fun updateCustomScribeInstance(instance: String) {
+        context.dataStore.edit { preferences ->
+            preferences[CUSTOM_SCRIBE_KEY] = instance
+        }
+    }
+
+    suspend fun updateThemeMode(themeMode: String) {
+        context.dataStore.edit { preferences ->
+            preferences[THEME_MODE_KEY] = themeMode
+        }
+    }
+
+    suspend fun updateHistoryEnabled(enabled: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[HISTORY_ENABLED_KEY] = enabled
         }
     }
 }

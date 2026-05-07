@@ -1,38 +1,51 @@
 package com.hermeticvm.linkahest.data.models
 
 data class UserSettings(
-    val selectedNitterInstance: String = "twiiit.com",
+    val selectedNitterInstance: String = "farside.link/nitter",
     val customNitterInstance: String = "",
-    val selectedInvidiousInstance: String = "redirect.invidious.io",
+    val selectedInvidiousInstance: String = "farside.link/invidious",
     val customInvidiousInstance: String = "",
-    val selectedRedlibInstance: String = "rl.bloat.cat",
-    val customRedlibInstance: String = ""
+    val selectedRedlibInstance: String = "farside.link/redlib",
+    val customRedlibInstance: String = "",
+    val selectedScribeInstance: String = "farside.link/scribe",
+    val customScribeInstance: String = "",
+    val themeMode: String = ThemeModes.SYSTEM,
+    val historyEnabled: Boolean = false
 )
+
+object ThemeModes {
+    const val SYSTEM = "system"
+    const val LIGHT = "light"
+    const val DARK = "dark"
+}
 
 object DefaultInstances {
     // list of instances: https://status.d420.de/
     val NITTER_INSTANCES = listOf(
+        "farside.link/nitter",
         "twiiit.com",
+        "nitter.tiekoetter.com",
+        "nitter.privacyredirect.com",
         "nitter.net",
-        "xcancel.com", 
-        "nitter.space",
-        "nitter.poast.org"
+        "nitter.space"
     )
-    // list of instances: https://gitea.it/iv-org/documentation/src/commit/e3abe75be38dd719537bf4868ab80f54179d46b1/docs/instances.md
+    // list of instances: https://docs.invidious.io/instances/
     val INVIDIOUS_INSTANCES = listOf(
+        "farside.link/invidious",
         "redirect.invidious.io",
-        "yewtu.be",
-        "inv.nadeko.net",
-        "invidious.nerdvpn.de"
+        "invidious.nerdvpn.de",
+        "inv.thepixora.com"
     )
     // list of instances: https://github.com/redlib-org/redlib-instances/blob/main/instances.md
     val REDLIB_INSTANCES = listOf(
+        "farside.link/redlib",
         "rl.bloat.cat",
-        "redlib.tux.pizza",
-        "redlib.ducks.party",
-        "redlib.privadency.com",	
-        "redlib.catsarch.com",
-        "redlib.r4fo.com", 
-        "red.ngn.tf"
+        "redlib.perennialte.ch",
+        "redlib.r4fo.com",
+        "red.artemislena.eu",
+        "redlib.privadency.com"
+    )
+    val SCRIBE_INSTANCES = listOf(
+        "farside.link/scribe"
     )
 }

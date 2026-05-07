@@ -10,6 +10,6 @@ data class LinkTransformation(
     val id: Long = 0,
     val originalUrl: String,
     val transformedUrl: String,
-    val transformationType: String, // "youtube_clean", "youtube_invidious", "twitter_nitter"
+    val transformationType: String,
     val timestamp: Date = Date()
 )

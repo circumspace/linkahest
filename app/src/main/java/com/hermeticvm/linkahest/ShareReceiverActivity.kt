@@ -7,6 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -29,12 +31,14 @@ class ShareReceiverActivity : ComponentActivity() {
         
         if (sharedText != null) {
             setContent {
-                LinkahestTheme {
+                val application = application as LinkahestApplication
+                val settings by application.settingsRepository.userSettings.collectAsState(initial = null)
+
+                LinkahestTheme(themeMode = settings?.themeMode ?: "system") {
                     Surface(
                         modifier = Modifier.fillMaxSize(),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        val application = application as LinkahestApplication
                         val viewModel: TransformationViewModel = viewModel(
                             factory = object : ViewModelProvider.Factory {
                                 @Suppress("UNCHECKED_CAST")

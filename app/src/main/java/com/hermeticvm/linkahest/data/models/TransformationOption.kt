@@ -8,12 +8,6 @@ data class TransformationOption(
 
 // Predefined transformation options
 object TransformationOptions {
-    val YOUTUBE_CLEAN = TransformationOption(
-        type = "youtube_clean",
-        label = "Clean YouTube Link",
-        description = "Remove tracking parameters"
-    )
-    
     val YOUTUBE_INVIDIOUS = TransformationOption(
         type = "youtube_invidious", 
         label = "YouTube to Invidious",
@@ -31,4 +25,11 @@ object TransformationOptions {
         label = "Reddit to Redlib",
         description = "Convert to privacy-focused Redlib instance"
     )
+
+    val MEDIUM_SCRIBE = TransformationOption(
+        type = "medium_scribe",
+        label = "Medium to Scribe",
+        description = "Convert to privacy-focused Scribe instance"
+    )
+
 }
