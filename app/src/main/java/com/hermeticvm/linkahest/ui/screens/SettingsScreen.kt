@@ -108,12 +108,12 @@ fun SettingsScreen(
             )
 
             InstanceSettingsCard(
-                title = "Redlib Instance",
-                description = "Choose your preferred Redlib instance for Reddit links",
+                title = "Reddit Frontend",
+                description = "Choose your preferred privacy frontend for Reddit links",
                 instances = DefaultInstances.REDLIB_INSTANCES,
                 selectedInstance = uiState.selectedRedlibInstance,
                 customInstance = uiState.customRedlibInstance,
-                customLabel = "Custom Redlib URL",
+                customLabel = "Custom Reddit frontend URL",
                 customPlaceholder = "e.g., redlib.example.com",
                 instanceHealth = instanceHealth,
                 onCheckAvailability = {
