@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hermeticvm.linkahest.ui.components.TransformationOptionCard
 import com.hermeticvm.linkahest.ui.components.UrlDisplayCard
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,8 +32,8 @@ fun TransformationScreen(
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current
-    var showSnackbar by remember { mutableStateOf(false) }
-    var snackbarMessage by remember { mutableStateOf("") }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
     
     LaunchedEffect(originalUrl) {
         viewModel.loadTransformationOptions(originalUrl)
@@ -50,16 +51,7 @@ fun TransformationScreen(
             )
         },
         snackbarHost = {
-            if (showSnackbar) {
-                SnackbarHost(
-                    hostState = remember { SnackbarHostState() }
-                ) {
-                    LaunchedEffect(Unit) {
-                        showSnackbar = false
-                    }
-                    Snackbar { Text(snackbarMessage) }
-                }
-            }
+            SnackbarHost(hostState = snackbarHostState)
         }
     ) { paddingValues ->
         Column(
@@ -135,9 +127,9 @@ fun TransformationScreen(
                                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(transformedUrl))
                                 context.startActivity(intent)
                             } catch (e: Exception) {
-                                // Handle case where no browser is available
-                                snackbarMessage = "Unable to open link"
-                                showSnackbar = true
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar("Unable to open link")
+                                }
                             }
                         }
                     )
@@ -149,8 +141,9 @@ fun TransformationScreen(
                         OutlinedButton(
                             onClick = {
                                 clipboardManager.setText(AnnotatedString(transformedUrl))
-                                snackbarMessage = "Copied to clipboard"
-                                showSnackbar = true
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar("Copied to clipboard")
+                                }
                             },
                             modifier = Modifier.weight(1f)
                         ) {
