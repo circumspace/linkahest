@@ -43,9 +43,11 @@ class TransformLinkUseCase(
     }
     
     suspend fun transformUrl(url: String, option: TransformationOption): String {
-        return transformers.firstOrNull { transformer ->
-            transformer.canTransform(url) && transformer.getTransformationOptions(url).any { it.type == option.type }
-        }?.transform(url, option) ?: url
+        val transformer = transformers.firstOrNull { transformer ->
+            transformer.getTransformationOptions(url).any { it.type == option.type }
+        }
+
+        return transformer?.transform(url, option) ?: url
     }
     
     suspend fun transformAndSave(url: String, option: TransformationOption): String {

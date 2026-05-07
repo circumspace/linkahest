@@ -2,7 +2,6 @@ package com.hermeticvm.linkahest
 
 import android.app.Application
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import com.hermeticvm.linkahest.data.database.AppDatabase
 import com.hermeticvm.linkahest.data.repository.LinkTransformationRepository
 import com.hermeticvm.linkahest.data.repository.SettingsRepository
@@ -24,39 +23,33 @@ class LinkahestApplication : Application() {
     // Transformers with settings dependency
     val twitterTransformer by lazy { 
         TwitterTransformer { 
-            runBlocking {
-                val settings = settingsRepository.userSettings.first()
-                if (settings.selectedNitterInstance == "custom") {
-                    settings.customNitterInstance.ifEmpty { "farside.link/nitter" }
-                } else {
-                    settings.selectedNitterInstance
-                }
+            val settings = settingsRepository.userSettings.first()
+            if (settings.selectedNitterInstance == "custom") {
+                settings.customNitterInstance.ifEmpty { "farside.link/nitter" }
+            } else {
+                settings.selectedNitterInstance
             }
         }
     }
     
     val youtubeTransformer by lazy { 
         YouTubeTransformer { 
-            runBlocking {
-                val settings = settingsRepository.userSettings.first()
-                if (settings.selectedInvidiousInstance == "custom") {
-                    settings.customInvidiousInstance.ifEmpty { "farside.link/invidious" }
-                } else {
-                    settings.selectedInvidiousInstance
-                }
+            val settings = settingsRepository.userSettings.first()
+            if (settings.selectedInvidiousInstance == "custom") {
+                settings.customInvidiousInstance.ifEmpty { "farside.link/invidious" }
+            } else {
+                settings.selectedInvidiousInstance
             }
         }
     }
     
     val redditTransformer by lazy { 
         RedditTransformer { 
-            runBlocking {
-                val settings = settingsRepository.userSettings.first()
-                if (settings.selectedRedlibInstance == "custom") {
-                    settings.customRedlibInstance.ifEmpty { "farside.link/redlib" }
-                } else {
-                    settings.selectedRedlibInstance
-                }
+            val settings = settingsRepository.userSettings.first()
+            if (settings.selectedRedlibInstance == "custom") {
+                settings.customRedlibInstance.ifEmpty { "farside.link/redlib" }
+            } else {
+                settings.selectedRedlibInstance
             }
         }
     }

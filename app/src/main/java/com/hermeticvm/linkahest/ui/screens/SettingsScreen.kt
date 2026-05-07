@@ -1,14 +1,30 @@
 package com.hermeticvm.linkahest.ui.screens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
@@ -23,7 +39,7 @@ fun SettingsScreen(
     onNavigateBack: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -42,257 +58,133 @@ fun SettingsScreen(
                 .padding(paddingValues)
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+            verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(24.dp)
         ) {
-            // Nitter Settings
-            Card {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    Text(
-                        text = "Nitter Instance",
-                        style = MaterialTheme.typography.titleMedium
+            InstanceSettingsCard(
+                title = "Nitter Instance",
+                description = "Choose your preferred Nitter instance for Twitter/X links",
+                instances = DefaultInstances.NITTER_INSTANCES,
+                selectedInstance = uiState.selectedNitterInstance,
+                customInstance = uiState.customNitterInstance,
+                customLabel = "Custom Nitter URL",
+                customPlaceholder = "e.g., nitter.example.com",
+                onSelectInstance = viewModel::selectNitterInstance,
+                onCustomInstanceChange = viewModel::updateCustomNitterInstance
+            )
+
+            InstanceSettingsCard(
+                title = "Invidious Instance",
+                description = "Choose your preferred Invidious instance for YouTube links",
+                instances = DefaultInstances.INVIDIOUS_INSTANCES,
+                selectedInstance = uiState.selectedInvidiousInstance,
+                customInstance = uiState.customInvidiousInstance,
+                customLabel = "Custom Invidious URL",
+                customPlaceholder = "e.g., invidious.example.com",
+                onSelectInstance = viewModel::selectInvidiousInstance,
+                onCustomInstanceChange = viewModel::updateCustomInvidiousInstance
+            )
+
+            InstanceSettingsCard(
+                title = "Redlib Instance",
+                description = "Choose your preferred Redlib instance for Reddit links",
+                instances = DefaultInstances.REDLIB_INSTANCES,
+                selectedInstance = uiState.selectedRedlibInstance,
+                customInstance = uiState.customRedlibInstance,
+                customLabel = "Custom Redlib URL",
+                customPlaceholder = "e.g., redlib.example.com",
+                onSelectInstance = viewModel::selectRedlibInstance,
+                onCustomInstanceChange = viewModel::updateCustomRedlibInstance
+            )
+        }
+    }
+}
+
+@Composable
+private fun InstanceSettingsCard(
+    title: String,
+    description: String,
+    instances: List<String>,
+    selectedInstance: String,
+    customInstance: String,
+    customLabel: String,
+    customPlaceholder: String,
+    onSelectInstance: (String) -> Unit,
+    onCustomInstanceChange: (String) -> Unit
+) {
+    Card {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(16.dp)
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            Text(
+                text = description,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            Column(modifier = Modifier.selectableGroup()) {
+                instances.forEach { instance ->
+                    InstanceRow(
+                        label = instanceLabel(instance),
+                        selected = selectedInstance == instance,
+                        onClick = { onSelectInstance(instance) }
                     )
-                    
-                    Text(
-                        text = "Choose your preferred Nitter instance for Twitter/X links",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    
-                    Column(
-                        modifier = Modifier.selectableGroup()
-                    ) {
-                        DefaultInstances.NITTER_INSTANCES.forEach { instance ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .selectable(
-                                        selected = (uiState.selectedNitterInstance == instance),
-                                        onClick = { viewModel.selectNitterInstance(instance) },
-                                        role = Role.RadioButton
-                                    )
-                                    .padding(vertical = 8.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                RadioButton(
-                                    selected = (uiState.selectedNitterInstance == instance),
-                                    onClick = null
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    text = instanceLabel(instance),
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                            }
-                        }
-                        
-                        // Custom instance option
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .selectable(
-                                    selected = (uiState.selectedNitterInstance == "custom"),
-                                    onClick = { viewModel.selectNitterInstance("custom") },
-                                    role = Role.RadioButton
-                                )
-                                .padding(vertical = 8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            RadioButton(
-                                selected = (uiState.selectedNitterInstance == "custom"),
-                                onClick = null
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                text = "Custom instance",
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                        }
-                        
-                        if (uiState.selectedNitterInstance == "custom") {
-                            OutlinedTextField(
-                                value = uiState.customNitterInstance,
-                                onValueChange = viewModel::updateCustomNitterInstance,
-                                label = { Text("Custom Nitter URL") },
-                                placeholder = { Text("e.g., nitter.example.com") },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 32.dp),
-                                singleLine = true
-                            )
-                        }
-                    }
                 }
-            }
-            
-            // Invidious Settings
-            Card {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    Text(
-                        text = "Invidious Instance",
-                        style = MaterialTheme.typography.titleMedium
+
+                InstanceRow(
+                    label = "Custom instance",
+                    selected = selectedInstance == "custom",
+                    onClick = { onSelectInstance("custom") }
+                )
+
+                if (selectedInstance == "custom") {
+                    OutlinedTextField(
+                        value = customInstance,
+                        onValueChange = onCustomInstanceChange,
+                        label = { Text(customLabel) },
+                        placeholder = { Text(customPlaceholder) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 32.dp),
+                        singleLine = true
                     )
-                    
-                    Text(
-                        text = "Choose your preferred Invidious instance for YouTube links",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    
-                    Column(
-                        modifier = Modifier.selectableGroup()
-                    ) {
-                        DefaultInstances.INVIDIOUS_INSTANCES.forEach { instance ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .selectable(
-                                        selected = (uiState.selectedInvidiousInstance == instance),
-                                        onClick = { viewModel.selectInvidiousInstance(instance) },
-                                        role = Role.RadioButton
-                                    )
-                                    .padding(vertical = 8.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                RadioButton(
-                                    selected = (uiState.selectedInvidiousInstance == instance),
-                                    onClick = null
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    text = instanceLabel(instance),
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                            }
-                        }
-                        
-                        // Custom instance option
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .selectable(
-                                    selected = (uiState.selectedInvidiousInstance == "custom"),
-                                    onClick = { viewModel.selectInvidiousInstance("custom") },
-                                    role = Role.RadioButton
-                                )
-                                .padding(vertical = 8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            RadioButton(
-                                selected = (uiState.selectedInvidiousInstance == "custom"),
-                                onClick = null
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                text = "Custom instance",
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                        }
-                        
-                        if (uiState.selectedInvidiousInstance == "custom") {
-                            OutlinedTextField(
-                                value = uiState.customInvidiousInstance,
-                                onValueChange = viewModel::updateCustomInvidiousInstance,
-                                label = { Text("Custom Invidious URL") },
-                                placeholder = { Text("e.g., invidious.example.com") },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 32.dp),
-                                singleLine = true
-                            )
-                        }
-                    }
-                }
-            }
-            
-            // Redlib Settings
-            Card {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    Text(
-                        text = "Redlib Instance",
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    
-                    Text(
-                        text = "Choose your preferred Redlib instance for Reddit links",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    
-                    Column(
-                        modifier = Modifier.selectableGroup()
-                    ) {
-                        DefaultInstances.REDLIB_INSTANCES.forEach { instance ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .selectable(
-                                        selected = (uiState.selectedRedlibInstance == instance),
-                                        onClick = { viewModel.selectRedlibInstance(instance) },
-                                        role = Role.RadioButton
-                                    )
-                                    .padding(vertical = 8.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                RadioButton(
-                                    selected = (uiState.selectedRedlibInstance == instance),
-                                    onClick = null
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    text = instanceLabel(instance),
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                            }
-                        }
-                        
-                        // Custom instance option
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .selectable(
-                                    selected = (uiState.selectedRedlibInstance == "custom"),
-                                    onClick = { viewModel.selectRedlibInstance("custom") },
-                                    role = Role.RadioButton
-                                )
-                                .padding(vertical = 8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            RadioButton(
-                                selected = (uiState.selectedRedlibInstance == "custom"),
-                                onClick = null
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                text = "Custom instance",
-                                style = MaterialTheme.typography.bodyMedium
-                            )
-                        }
-                        
-                        if (uiState.selectedRedlibInstance == "custom") {
-                            OutlinedTextField(
-                                value = uiState.customRedlibInstance,
-                                onValueChange = viewModel::updateCustomRedlibInstance,
-                                label = { Text("Custom Redlib URL") },
-                                placeholder = { Text("e.g., redlib.example.com") },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 32.dp),
-                                singleLine = true
-                            )
-                        }
-                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun InstanceRow(
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    androidx.compose.foundation.layout.Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .selectable(
+                selected = selected,
+                onClick = onClick,
+                role = Role.RadioButton
+            )
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        RadioButton(
+            selected = selected,
+            onClick = null
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
 

@@ -8,12 +8,6 @@ data class TransformationOption(
 
 // Predefined transformation options
 object TransformationOptions {
-    val YOUTUBE_CLEAN = TransformationOption(
-        type = "youtube_clean",
-        label = "Clean YouTube Link",
-        description = "Remove tracking parameters"
-    )
-    
     val YOUTUBE_INVIDIOUS = TransformationOption(
         type = "youtube_invidious", 
         label = "YouTube to Invidious",

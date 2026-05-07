@@ -27,10 +27,7 @@ class YouTubeTransformer(
     
     override fun getTransformationOptions(url: String): List<TransformationOption> {
         return if (canTransform(url)) {
-            listOf(
-                TransformationOptions.YOUTUBE_CLEAN,
-                TransformationOptions.YOUTUBE_INVIDIOUS
-            )
+            listOf(TransformationOptions.YOUTUBE_INVIDIOUS)
         } else {
             emptyList()
         }
@@ -40,22 +37,8 @@ class YouTubeTransformer(
         if (!canTransform(url)) return url
         
         return when (option.type) {
-            "youtube_clean" -> cleanYouTubeUrl(url)
             "youtube_invidious" -> convertToInvidious(url)
             else -> url
-        }
-    }
-    
-    private fun cleanYouTubeUrl(url: String): String {
-        try {
-            val uri = URI(url)
-            val videoId = extractVideoId(uri) ?: return url
-            
-            // Build clean YouTube URL and then remove tracking parameters
-            val cleanUrl = "https://www.youtube.com/watch?v=$videoId"
-            return TrackingCleaner.cleanUrl(cleanUrl)
-        } catch (e: Exception) {
-            return url
         }
     }
     
