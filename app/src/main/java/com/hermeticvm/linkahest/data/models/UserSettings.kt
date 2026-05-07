@@ -14,28 +14,32 @@ object DefaultInstances {
     val NITTER_INSTANCES = listOf(
         "farside.link/nitter",
         "twiiit.com",
+        "nitter.catsarch.com",
+        "nitter.tiekoetter.com",
+        "nitter.privacyredirect.com",
+        "xcancel.com",
         "nitter.net",
-        "xcancel.com", 
         "nitter.space",
         "nitter.poast.org"
     )
-    // list of instances: https://gitea.it/iv-org/documentation/src/commit/e3abe75be38dd719537bf4868ab80f54179d46b1/docs/instances.md
+    // list of instances: https://docs.invidious.io/instances/
     val INVIDIOUS_INSTANCES = listOf(
         "farside.link/invidious",
         "redirect.invidious.io",
-        "yewtu.be",
         "inv.nadeko.net",
-        "invidious.nerdvpn.de"
+        "invidious.nerdvpn.de",
+        "yt.chocolatemoo53.com",
+        "inv.thepixora.com"
     )
     // list of instances: https://github.com/redlib-org/redlib-instances/blob/main/instances.md
     val REDLIB_INSTANCES = listOf(
         "farside.link/redlib",
-        "rl.bloat.cat",
-        "redlib.tux.pizza",
-        "redlib.ducks.party",
-        "redlib.privadency.com",	
         "redlib.catsarch.com",
-        "redlib.r4fo.com", 
-        "red.ngn.tf"
+        "redlib.perennialte.ch",
+        "redlib.r4fo.com",
+        "red.artemislena.eu",
+        "redlib.cow.rip",
+        "redlib.nadeko.net",
+        "redlib.privadency.com"
     )
 }
