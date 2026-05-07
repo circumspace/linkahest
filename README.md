@@ -6,7 +6,7 @@
 
 A privacy-focused Android app written in Kotlin that transforms social media links to selfhostable alternative frontends before sharing them. First released under GPL v3 in 2025.
 
-Vibe coded with Goose and Cline.
+Vibe coded with ~~Goose~~ and Cline.
 
 <div align="center">
   <img src="linkahest_icon_512.png" alt="Linkahest App Icon" width="128" height="128">
@@ -78,7 +78,7 @@ Add [release link](https://github.com/circumspace/linkahest/releases) to Obtaini
 ### Prerequisites
 
 - Android Studio
-- JDK 8 or newer
+- JDK 21 recommended (or the JDK bundled with current Android Studio)
 - Android SDK API 34
 
 ### Build Commands

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'com.hermeticvm.linkahest'
+    namespace = 'com.hermeticvm.linkahest'
     compileSdk 36
 
     defaultConfig {
@@ -18,7 +18,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
-            useSupportLibrary true
+            useSupportLibrary = true
         }
     }
 
@@ -36,7 +36,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        compose true
+        compose = true
     }
 
     packaging {
