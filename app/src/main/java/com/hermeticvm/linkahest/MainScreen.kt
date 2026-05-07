@@ -51,6 +51,14 @@ fun MainScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_linkahest_logo),
+            contentDescription = "Linkahest logo",
+            modifier = Modifier.size(96.dp)
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
         Text(
             text = "LINKAHEST",
             style = MaterialTheme.typography.displayLarge.copy(

@@ -104,6 +104,7 @@ lint-results*.html
 *.rej
 
 # Temporary files
+tmp/
 *.tmp
 *.temp
 *.swp
