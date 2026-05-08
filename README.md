@@ -30,7 +30,7 @@ It runs locally, requests no network permission, and keeps history off unless yo
 
 ### Zapstore
 
-Linkahest is available on [Zapstore](https://zapstore.dev/).
+Linkahest is available on [Zapstore]([https://zapstore.dev/](https://zapstore.dev/apps/com.hermeticvm.linkahest)).
 
 ### Obtainium or APK
 
