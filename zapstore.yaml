@@ -1,7 +1,7 @@
 # Migrated from zapstore-cli format
 
 repository: https://github.com/circumspace/linkahest
-release_source: "app/build/outputs/apk/debug/*.apk"
+release_source: "app/build/outputs/apk/release/*.apk"
 
 name: Linkahest
 summary: Clean shared links and open supported services through alternative frontends.

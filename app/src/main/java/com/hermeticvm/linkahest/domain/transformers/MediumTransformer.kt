@@ -5,7 +5,7 @@ import com.hermeticvm.linkahest.data.models.TransformationOptions
 import java.net.URI
 
 class MediumTransformer(
-    private val getScribeInstance: suspend () -> String = { "farside.link/scribe" }
+    private val getScribeInstance: suspend () -> String = { "libmedium.batsense.net" }
 ) : LinkTransformer {
 
     private val mediumHosts = setOf(

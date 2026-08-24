@@ -28,8 +28,8 @@ object TransformationOptions {
 
     val MEDIUM_SCRIBE = TransformationOption(
         type = "medium_scribe",
-        label = "Medium to Scribe",
-        description = "Convert to privacy-focused Scribe instance"
+        label = "Medium to privacy frontend",
+        description = "Convert to a privacy-focused Medium frontend"
     )
 
 }

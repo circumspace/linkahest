@@ -6,7 +6,7 @@
 
 Linkahest cleans shared links before they leave your phone. Send YouTube, Twitter/X, Reddit, Medium, and other URLs through it to strip trackers or open them through alternative frontends.
 
-It runs locally, requests no network permission, and keeps history off unless you turn it on.
+Link transformation runs locally and history stays off unless you turn it on. Network access is used only when you explicitly check alternative-frontend availability in Settings.
 
 ![Home screen](docs/screenshots/main-screen.png)
 
@@ -17,6 +17,7 @@ It runs locally, requests no network permission, and keeps history off unless yo
 - Detects redirect links and extracts the real destination when possible.
 - Supports alternative frontends for YouTube, Twitter/X, Reddit, and Medium.
 - Lets you pick built-in frontend instances or enter your own.
+- Checks built-in and custom frontend availability on demand.
 - Keeps transformed-link history disabled by default.
 - Supports light, dark, and system themes.
 
@@ -35,6 +36,19 @@ Linkahest is available on [Zapstore]([https://zapstore.dev/](https://zapstore.de
 ### Obtainium or APK
 
 Add the [GitHub releases page](https://github.com/circumspace/linkahest/releases) to Obtainium, or download the APK manually.
+
+## Releases
+
+Pull requests and pushes to `main` run unit tests, lint, and a debug build. Pushing a tag that matches the app version, such as `v0.6.0`, builds signed APK and AAB artifacts and publishes a prerelease.
+
+The release workflow requires these GitHub Actions secrets:
+
+- `SIGNING_KEYSTORE_BASE64`
+- `SIGNING_STORE_PASSWORD`
+- `SIGNING_KEY_ALIAS`
+- `SIGNING_KEY_PASSWORD`
+
+The workflow verifies the signing certificate used by existing releases before publishing, preventing an incompatible update from being released accidentally.
 
 ## Donate
 

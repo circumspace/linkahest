@@ -3,6 +3,7 @@ package com.hermeticvm.linkahest
 import android.app.Application
 import kotlinx.coroutines.flow.first
 import com.hermeticvm.linkahest.data.database.AppDatabase
+import com.hermeticvm.linkahest.data.models.DefaultInstances
 import com.hermeticvm.linkahest.data.repository.LinkTransformationRepository
 import com.hermeticvm.linkahest.data.repository.SettingsRepository
 import com.hermeticvm.linkahest.domain.transformers.TwitterTransformer
@@ -26,7 +27,7 @@ class LinkahestApplication : Application() {
         TwitterTransformer { 
             val settings = settingsRepository.userSettings.first()
             if (settings.selectedNitterInstance == "custom") {
-                settings.customNitterInstance.ifEmpty { "farside.link/nitter" }
+                settings.customNitterInstance.ifEmpty { DefaultInstances.NITTER_INSTANCES.first() }
             } else {
                 settings.selectedNitterInstance
             }
@@ -37,7 +38,7 @@ class LinkahestApplication : Application() {
         YouTubeTransformer { 
             val settings = settingsRepository.userSettings.first()
             if (settings.selectedInvidiousInstance == "custom") {
-                settings.customInvidiousInstance.ifEmpty { "farside.link/invidious" }
+                settings.customInvidiousInstance.ifEmpty { DefaultInstances.INVIDIOUS_INSTANCES.first() }
             } else {
                 settings.selectedInvidiousInstance
             }
@@ -48,7 +49,7 @@ class LinkahestApplication : Application() {
         RedditTransformer { 
             val settings = settingsRepository.userSettings.first()
             if (settings.selectedRedlibInstance == "custom") {
-                settings.customRedlibInstance.ifEmpty { "farside.link/redlib" }
+                settings.customRedlibInstance.ifEmpty { DefaultInstances.REDLIB_INSTANCES.first() }
             } else {
                 settings.selectedRedlibInstance
             }
@@ -59,7 +60,7 @@ class LinkahestApplication : Application() {
         MediumTransformer {
             val settings = settingsRepository.userSettings.first()
             if (settings.selectedScribeInstance == "custom") {
-                settings.customScribeInstance.ifEmpty { "farside.link/scribe" }
+                settings.customScribeInstance.ifEmpty { DefaultInstances.SCRIBE_INSTANCES.first() }
             } else {
                 settings.selectedScribeInstance
             }

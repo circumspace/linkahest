@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.hermeticvm.linkahest.data.models.DefaultInstances
 import com.hermeticvm.linkahest.data.models.UserSettings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -29,13 +30,29 @@ class SettingsRepository(private val context: Context) {
     
     val userSettings: Flow<UserSettings> = context.dataStore.data.map { preferences ->
         UserSettings(
-            selectedNitterInstance = preferences[NITTER_INSTANCE_KEY] ?: "farside.link/nitter",
+            selectedNitterInstance = replaceFarside(
+                preferences[NITTER_INSTANCE_KEY],
+                "farside.link/nitter",
+                DefaultInstances.NITTER_INSTANCES.first()
+            ),
             customNitterInstance = preferences[CUSTOM_NITTER_KEY] ?: "",
-            selectedInvidiousInstance = preferences[INVIDIOUS_INSTANCE_KEY] ?: "farside.link/invidious",
+            selectedInvidiousInstance = replaceFarside(
+                preferences[INVIDIOUS_INSTANCE_KEY],
+                "farside.link/invidious",
+                DefaultInstances.INVIDIOUS_INSTANCES.first()
+            ),
             customInvidiousInstance = preferences[CUSTOM_INVIDIOUS_KEY] ?: "",
-            selectedRedlibInstance = preferences[REDLIB_INSTANCE_KEY] ?: "farside.link/redlib",
+            selectedRedlibInstance = replaceFarside(
+                preferences[REDLIB_INSTANCE_KEY],
+                "farside.link/redlib",
+                DefaultInstances.REDLIB_INSTANCES.first()
+            ),
             customRedlibInstance = preferences[CUSTOM_REDLIB_KEY] ?: "",
-            selectedScribeInstance = preferences[SCRIBE_INSTANCE_KEY] ?: "farside.link/scribe",
+            selectedScribeInstance = replaceFarside(
+                preferences[SCRIBE_INSTANCE_KEY],
+                "farside.link/scribe",
+                DefaultInstances.SCRIBE_INSTANCES.first()
+            ),
             customScribeInstance = preferences[CUSTOM_SCRIBE_KEY] ?: "",
             themeMode = preferences[THEME_MODE_KEY] ?: "system",
             historyEnabled = preferences[HISTORY_ENABLED_KEY] ?: false
@@ -100,5 +117,9 @@ class SettingsRepository(private val context: Context) {
         context.dataStore.edit { preferences ->
             preferences[HISTORY_ENABLED_KEY] = enabled
         }
+    }
+
+    private fun replaceFarside(value: String?, farsideValue: String, defaultValue: String): String {
+        return if (value == null || value == farsideValue) defaultValue else value
     }
 }

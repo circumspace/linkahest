@@ -2,6 +2,7 @@ package com.hermeticvm.linkahest.ui.theme
 
 import android.os.Build
 import android.app.Activity
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ColorScheme
@@ -103,6 +104,7 @@ fun LinkahestTheme(
 }
 
 @Composable
+@RequiresApi(Build.VERSION_CODES.S)
 private fun dynamicColorScheme(darkTheme: Boolean): ColorScheme {
     val context = LocalContext.current
     return if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
