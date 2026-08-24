@@ -31,7 +31,7 @@ Link transformation runs locally and history stays off unless you turn it on. Ne
 
 ### Zapstore
 
-Linkahest is available on [Zapstore]([https://zapstore.dev/](https://zapstore.dev/apps/com.hermeticvm.linkahest)).
+Linkahest is available on [Zapstore](https://zapstore.dev/apps/com.hermeticvm.linkahest).
 
 ### Obtainium or APK
 
