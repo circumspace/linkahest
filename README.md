@@ -6,7 +6,9 @@
 
 Linkahest cleans shared links before they leave your phone. Send YouTube, Twitter/X, Reddit, Medium, and other URLs through it to strip trackers or open them through alternative frontends.
 
-Link transformation runs locally and history stays off unless you turn it on. Network access is used only when you explicitly check alternative-frontend availability in Settings.
+Link transformation **runs locally** and history stays off unless you turn it on. **Network access is used only when you explicitly check alternative-frontend availability in Settings.**
+
+Since v0.6.0, Linkahest requests Internet permission so you can manually check whether transformation targets are available. You can deny this permission without affecting link cleaning or transformation; only the optional availability checks require it.
 
 ![Home screen](docs/screenshots/main-screen.png)
 
