@@ -30,11 +30,7 @@ class SettingsRepository(private val context: Context) {
     
     val userSettings: Flow<UserSettings> = context.dataStore.data.map { preferences ->
         UserSettings(
-            selectedNitterInstance = replaceFarside(
-                preferences[NITTER_INSTANCE_KEY],
-                "farside.link/nitter",
-                DefaultInstances.NITTER_INSTANCES.first()
-            ),
+            selectedNitterInstance = migrateNitterInstance(preferences[NITTER_INSTANCE_KEY]),
             customNitterInstance = preferences[CUSTOM_NITTER_KEY] ?: "",
             selectedInvidiousInstance = replaceFarside(
                 preferences[INVIDIOUS_INSTANCE_KEY],
@@ -121,5 +117,22 @@ class SettingsRepository(private val context: Context) {
 
     private fun replaceFarside(value: String?, farsideValue: String, defaultValue: String): String {
         return if (value == null || value == farsideValue) defaultValue else value
+    }
+}
+
+private val RETIRED_NITTER_INSTANCES = setOf(
+    "farside.link/nitter",
+    "twiiit.com",
+    "nitter.tiekoetter.com",
+    "nitter.privacyredirect.com",
+    "nitter.net",
+    "nitter.space"
+)
+
+internal fun migrateNitterInstance(value: String?): String {
+    return if (value == null || value in RETIRED_NITTER_INSTANCES) {
+        DefaultInstances.NITTER_INSTANCES.first()
+    } else {
+        value
     }
 }

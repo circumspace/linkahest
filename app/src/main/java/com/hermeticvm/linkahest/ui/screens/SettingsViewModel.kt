@@ -173,7 +173,7 @@ fun normalizeInstance(instance: String): String {
 
 fun isRedirectingInstance(instance: String): Boolean {
     val normalized = normalizeInstance(instance)
-    return normalized == "twiiit.com" ||
+    return normalized in DefaultInstances.NITTER_REDIRECTORS ||
         normalized == "redirect.invidious.io"
 }
 

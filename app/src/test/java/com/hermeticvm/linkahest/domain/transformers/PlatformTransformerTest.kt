@@ -34,12 +34,25 @@ class PlatformTransformerTest {
 
     @Test
     fun convertsTwitterToConfiguredNitterInstanceAndRemovesTracking() = runTest {
-        val transformer = TwitterTransformer { "farside.link/nitter" }
+        val transformer = TwitterTransformer { "nitter.click" }
 
         assertEquals(
-            "https://farside.link/nitter/user/status/123",
+            "https://nitter.click/user/status/123",
             transformer.transform(
                 "https://x.com/user/status/123?s=20&t=abc",
+                TransformationOptions.TWITTER_NITTER
+            )
+        )
+    }
+
+    @Test
+    fun convertsTwitterToRedirectorAndPreservesStatusPath() = runTest {
+        val transformer = TwitterTransformer { "xxcancel.com" }
+
+        assertEquals(
+            "https://xxcancel.com/jack/status/20",
+            transformer.transform(
+                "https://x.com/jack/status/20",
                 TransformationOptions.TWITTER_NITTER
             )
         )

@@ -20,14 +20,14 @@ object ThemeModes {
 }
 
 object DefaultInstances {
-    // list of instances: https://status.d420.de/
+    // Source: https://codeberg.org/mv12star/shitter/wiki/Instances
     val NITTER_INSTANCES = listOf(
-        "twiiit.com",
-        "nitter.tiekoetter.com",
-        "nitter.privacyredirect.com",
-        "nitter.net",
-        "nitter.space"
+        "xxcancel.com",
+        "nitter.click",
+        "nitter.meowing.monster",
+        "nitter.xitter.cc"
     )
+    val NITTER_REDIRECTORS = setOf("xxcancel.com")
     // list of instances: https://docs.invidious.io/instances/
     val INVIDIOUS_INSTANCES = listOf(
         "redirect.invidious.io",
