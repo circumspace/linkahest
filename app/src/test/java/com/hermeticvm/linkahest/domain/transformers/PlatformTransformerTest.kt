@@ -33,6 +33,85 @@ class PlatformTransformerTest {
     }
 
     @Test
+    fun convertsFullYouTubeWatchLinkToConfiguredInvidiousInstance() = runTest {
+        val transformer = YouTubeTransformer { "redirect.invidious.io" }
+
+        assertEquals(
+            "https://redirect.invidious.io/watch?v=dQw4w9WgXcQ",
+            transformer.transform(
+                "https://www.youtube.com/watch?v=dQw4w9WgXcQ&si=abc",
+                TransformationOptions.YOUTUBE_INVIDIOUS
+            )
+        )
+    }
+
+    @Test
+    fun convertsYouTubeShortToConfiguredInvidiousInstance() = runTest {
+        val transformer = YouTubeTransformer { "redirect.invidious.io" }
+
+        assertEquals(
+            "https://redirect.invidious.io/watch?v=dQw4w9WgXcQ",
+            transformer.transform(
+                "https://www.youtube.com/shorts/dQw4w9WgXcQ?si=abc",
+                TransformationOptions.YOUTUBE_INVIDIOUS
+            )
+        )
+    }
+
+    @Test
+    fun convertsYouTubeLiveLinkToConfiguredInvidiousInstance() = runTest {
+        val transformer = YouTubeTransformer { "redirect.invidious.io" }
+
+        assertEquals(
+            "https://redirect.invidious.io/watch?v=dQw4w9WgXcQ",
+            transformer.transform(
+                "https://youtube.com/live/dQw4w9WgXcQ?si=abc",
+                TransformationOptions.YOUTUBE_INVIDIOUS
+            )
+        )
+    }
+
+    @Test
+    fun convertsYouTubeEmbedToConfiguredInvidiousInstance() = runTest {
+        val transformer = YouTubeTransformer { "redirect.invidious.io" }
+
+        assertEquals(
+            "https://redirect.invidious.io/watch?v=dQw4w9WgXcQ",
+            transformer.transform(
+                "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ",
+                TransformationOptions.YOUTUBE_INVIDIOUS
+            )
+        )
+    }
+
+    @Test
+    fun explainsUnsupportedYouTubePathsInsteadOfOfferingConversion() {
+        val transformer = YouTubeTransformer { "redirect.invidious.io" }
+
+        val url = "https://youtube.com/@example/videos?feature=shared"
+
+        assertTrue(transformer.getTransformationOptions(url).isEmpty())
+        assertEquals(
+            "This YouTube link type cannot currently be converted to Invidious. " +
+                "Video, Shorts, Live, and embed links are supported.",
+            transformer.getUnavailableReason(url)
+        )
+    }
+
+    @Test
+    fun convertsYouTubeMusicLinks() = runTest {
+        val transformer = YouTubeTransformer { "redirect.invidious.io" }
+
+        assertEquals(
+            "https://redirect.invidious.io/watch?v=dQw4w9WgXcQ",
+            transformer.transform(
+                "https://music.youtube.com/watch?v=dQw4w9WgXcQ&feature=share",
+                TransformationOptions.YOUTUBE_INVIDIOUS
+            )
+        )
+    }
+
+    @Test
     fun convertsTwitterToConfiguredNitterInstanceAndRemovesTracking() = runTest {
         val transformer = TwitterTransformer { "nitter.click" }
 

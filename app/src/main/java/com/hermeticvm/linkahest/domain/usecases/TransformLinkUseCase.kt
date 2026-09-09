@@ -45,6 +45,10 @@ class TransformLinkUseCase(
         
         return options
     }
+
+    fun getUnavailableReason(url: String): String? {
+        return transformers.firstNotNullOfOrNull { it.getUnavailableReason(url) }
+    }
     
     suspend fun transformUrl(url: String, option: TransformationOption): String {
         val transformer = transformers.firstOrNull { transformer ->

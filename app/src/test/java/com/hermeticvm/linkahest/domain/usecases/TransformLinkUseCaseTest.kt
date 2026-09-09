@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Test
 
 class TransformLinkUseCaseTest {
@@ -41,6 +42,23 @@ class TransformLinkUseCaseTest {
         )
 
         assertEquals(1, dao.getTransformationCount())
+    }
+
+    @Test
+    fun reportsWhyUnsupportedYouTubeLinksCannotUseInvidious() {
+        val useCase = createUseCase(FakeLinkTransformationDao(), shouldSaveHistory = false)
+        val url = "https://youtube.com/@example/videos"
+
+        assertFalse(
+            useCase.getAvailableTransformations(url).contains(
+                TransformationOptions.YOUTUBE_INVIDIOUS
+            )
+        )
+        assertEquals(
+            "This YouTube link type cannot currently be converted to Invidious. " +
+                "Video, Shorts, Live, and embed links are supported.",
+            useCase.getUnavailableReason(url)
+        )
     }
 
     private fun createUseCase(

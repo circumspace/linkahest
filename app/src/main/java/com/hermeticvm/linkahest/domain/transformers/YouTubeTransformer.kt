@@ -11,17 +11,34 @@ class YouTubeTransformer(
     
     private val youtubeHosts = setOf(
         "youtube.com",
-        "www.youtube.com", 
+        "www.youtube.com",
         "m.youtube.com",
+        "music.youtube.com",
+        "youtube-nocookie.com",
+        "www.youtube-nocookie.com",
         "youtu.be"
     )
     
     override fun canTransform(url: String): Boolean {
         return try {
             val uri = URI(url)
-            youtubeHosts.contains(uri.host?.lowercase())
+            isYouTubeHost(uri) && extractVideoId(uri) != null
         } catch (e: Exception) {
             false
+        }
+    }
+
+    override fun getUnavailableReason(url: String): String? {
+        return try {
+            val uri = URI(url)
+            if (isYouTubeHost(uri) && extractVideoId(uri) == null) {
+                "This YouTube link type cannot currently be converted to Invidious. " +
+                    "Video, Shorts, Live, and embed links are supported."
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
         }
     }
     
@@ -44,24 +61,26 @@ class YouTubeTransformer(
     
     private suspend fun convertToInvidious(url: String): String {
         try {
-            val uri = URI(url)
-            val videoId = extractVideoId(uri) ?: return url
-            
-            // Convert to Invidious
+            val cleanUri = URI(TrackingCleaner.cleanUrl(url))
+            val videoId = extractVideoId(cleanUri) ?: return url
             val invidiousInstance = getInvidiousInstance()
             return "https://$invidiousInstance/watch?v=$videoId"
         } catch (e: Exception) {
             return url
         }
     }
+
+    private fun isYouTubeHost(uri: URI): Boolean {
+        return uri.host?.lowercase() in youtubeHosts
+    }
     
     private fun extractVideoId(uri: URI): String? {
         return when {
-            uri.host?.contains("youtu.be") == true -> {
+            uri.host?.equals("youtu.be", ignoreCase = true) == true -> {
                 // youtu.be format: https://youtu.be/VIDEO_ID
-                uri.path?.removePrefix("/")
+                extractPathSegment(uri.path, "/")
             }
-            uri.path?.startsWith("/watch") == true -> {
+            uri.path == "/watch" -> {
                 // youtube.com/watch format
                 uri.query?.split("&")
                     ?.find { it.startsWith("v=") }
@@ -70,9 +89,25 @@ class YouTubeTransformer(
             }
             uri.path?.startsWith("/embed/") == true -> {
                 // youtube.com/embed format
-                uri.path?.removePrefix("/embed/")
+                extractPathSegment(uri.path, "/embed/")
+            }
+            uri.path?.startsWith("/shorts/") == true -> {
+                extractPathSegment(uri.path, "/shorts/")
+            }
+            uri.path?.startsWith("/live/") == true -> {
+                extractPathSegment(uri.path, "/live/")
+            }
+            uri.path?.startsWith("/v/") == true -> {
+                extractPathSegment(uri.path, "/v/")
             }
             else -> null
         }
+    }
+
+    private fun extractPathSegment(path: String?, prefix: String): String? {
+        return path
+            ?.removePrefix(prefix)
+            ?.substringBefore('/')
+            ?.takeIf { it.isNotBlank() }
     }
 }
