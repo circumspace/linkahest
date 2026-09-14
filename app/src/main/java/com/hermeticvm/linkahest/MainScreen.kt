@@ -20,7 +20,6 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
@@ -31,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.shape.RoundedCornerShape
 
 @Composable
 fun MainScreen(
@@ -56,11 +54,9 @@ fun MainScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_linkahest_logo),
+            painter = painterResource(id = R.drawable.app_icon),
             contentDescription = "Linkahest logo",
-            modifier = Modifier
-                .size(96.dp)
-                .clip(RoundedCornerShape(24.dp))
+            modifier = Modifier.size(96.dp)
         )
 
         Spacer(modifier = Modifier.height(12.dp))

@@ -4,6 +4,16 @@
 [![Android](https://img.shields.io/badge/Platform-Android-green.svg)](https://www.android.com)
 [![Kotlin](https://img.shields.io/badge/Language-Kotlin-purple.svg)](https://kotlinlang.org)
 
+<p align="center">
+  <img src="app/src/main/res/drawable-nodpi/app_icon.png" alt="Linkahest app icon" width="160">
+</p>
+
+<p align="center">
+  <a href="https://zapstore.dev/apps/com.hermeticvm.linkahest">
+    <img src="https://zapstore.dev/images/get-it-on-zapstore.svg" alt="Get it on Zapstore" height="56">
+  </a>
+</p>
+
 Linkahest cleans shared links before they leave your phone. Send YouTube, Twitter/X, Reddit, Medium, and other URLs through it to strip trackers or open them through alternative frontends.
 
 Link transformation **runs locally** and history stays off unless you turn it on. **Network access is used only when you explicitly check alternative-frontend availability in Settings.**
