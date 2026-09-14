@@ -41,7 +41,7 @@ Add the [GitHub releases page](https://github.com/circumspace/linkahest/releases
 
 ## Releases
 
-Pull requests and pushes to `main` run unit tests, lint, and a debug build. Pushing a tag that matches the app version, such as `v0.6.0`, builds signed APK and AAB artifacts and publishes a prerelease.
+Pull requests and pushes to `main` run unit tests, lint, and a debug build. Pushing a tag that matches the app version, such as `v0.6.0`, builds signed APK and AAB artifacts and publishes a release.
 
 The release workflow requires these GitHub Actions secrets:
 
