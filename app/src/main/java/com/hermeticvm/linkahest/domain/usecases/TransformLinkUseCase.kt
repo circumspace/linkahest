@@ -27,6 +27,11 @@ class TransformLinkUseCase(
         mediumTransformer,
         universalCleanerTransformer
     )
+
+    private val transformersByType: Map<String, LinkTransformer> =
+        transformers.flatMap { transformer ->
+            transformer.supportedTypes.map { type -> type to transformer }
+        }.toMap()
     
     fun getAvailableTransformations(url: String): List<TransformationOption> {
         val options = mutableListOf<TransformationOption>()
@@ -51,11 +56,7 @@ class TransformLinkUseCase(
     }
     
     suspend fun transformUrl(url: String, option: TransformationOption): String {
-        val transformer = transformers.firstOrNull { transformer ->
-            transformer.getTransformationOptions(url).any { it.type == option.type }
-        }
-
-        return transformer?.transform(url, option) ?: url
+        return transformersByType[option.type]?.transform(url, option) ?: url
     }
     
     suspend fun transformAndSave(url: String, option: TransformationOption): String {

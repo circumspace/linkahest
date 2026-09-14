@@ -20,8 +20,8 @@ android {
         applicationId "com.hermeticvm.linkahest"
         minSdk 24
         targetSdk 36
-        versionCode 13
-        versionName "0.6.2"
+        versionCode 14
+        versionName "0.6.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -42,7 +42,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             if (hasReleaseSigning) {
                 signingConfig signingConfigs.release
@@ -70,6 +71,7 @@ android {
 dependencies {
     implementation 'androidx.core:core-ktx:1.19.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.11.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-compose:2.11.0'
     implementation 'androidx.activity:activity-compose:1.13.0'
     implementation 'androidx.appcompat:appcompat:1.8.0'
     implementation platform('androidx.compose:compose-bom:2026.08.00')
@@ -105,8 +107,9 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 }
 
+def releaseVersionName = android.defaultConfig.versionName
 tasks.register('printVersionName') {
     doLast {
-        println android.defaultConfig.versionName
+        println releaseVersionName
     }
 }

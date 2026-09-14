@@ -7,7 +7,6 @@ import com.hermeticvm.linkahest.data.models.LinkTransformation
 import com.hermeticvm.linkahest.data.repository.LinkTransformationRepository
 import com.hermeticvm.linkahest.data.repository.SettingsRepository
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -29,19 +28,6 @@ class HistoryViewModel(
         if (enabled) transformations else emptyList()
     }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
-
-    init {
-        viewModelScope.launch {
-            settingsRepository.userSettings
-                .map { it.historyEnabled }
-                .distinctUntilChanged()
-                .collect { enabled ->
-                    if (!enabled) {
-                        repository.clearAllTransformations()
-                    }
-                }
-        }
-    }
 
     fun clearHistory() {
         viewModelScope.launch {

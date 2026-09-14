@@ -1,11 +1,16 @@
 package com.hermeticvm.linkahest
 
 import android.app.Application
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import com.hermeticvm.linkahest.data.database.AppDatabase
 import com.hermeticvm.linkahest.data.models.DefaultInstances
 import com.hermeticvm.linkahest.data.repository.LinkTransformationRepository
 import com.hermeticvm.linkahest.data.repository.SettingsRepository
+import com.hermeticvm.linkahest.domain.usecases.observeHistoryRetention
 import com.hermeticvm.linkahest.domain.transformers.TwitterTransformer
 import com.hermeticvm.linkahest.domain.transformers.YouTubeTransformer
 import com.hermeticvm.linkahest.domain.transformers.RedditTransformer
@@ -14,7 +19,9 @@ import com.hermeticvm.linkahest.domain.transformers.UniversalCleanerTransformer
 import com.hermeticvm.linkahest.domain.usecases.TransformLinkUseCase
 
 class LinkahestApplication : Application() {
-    
+
+    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
     // Database
     val database by lazy { AppDatabase.getDatabase(this) }
     
@@ -80,6 +87,17 @@ class LinkahestApplication : Application() {
             universalCleanerTransformer
         ) {
             settingsRepository.userSettings.first().historyEnabled
+        }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+
+        // Single owner for history retention: purge stored links as soon as history is disabled.
+        applicationScope.launch {
+            observeHistoryRetention(settingsRepository.userSettings) {
+                repository.clearAllTransformations()
+            }
         }
     }
 }

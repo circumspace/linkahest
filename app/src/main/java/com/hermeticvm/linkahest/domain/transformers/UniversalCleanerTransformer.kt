@@ -3,7 +3,9 @@ package com.hermeticvm.linkahest.domain.transformers
 import com.hermeticvm.linkahest.data.models.TransformationOption
 
 class UniversalCleanerTransformer : LinkTransformer {
-    
+
+    override val supportedTypes = setOf("universal_clean")
+
     override fun canTransform(url: String): Boolean {
         return TrackingCleaner.hasTrackingParameters(url)
     }

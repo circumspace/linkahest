@@ -7,11 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,14 +29,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val application = application as LinkahestApplication
-            val settings by application.settingsRepository.userSettings.collectAsState(initial = null)
+            val settings by application.settingsRepository.userSettings
+                .collectAsStateWithLifecycle(initialValue = null)
 
             LinkahestTheme(themeMode = settings?.themeMode ?: "system") {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AppNavigation()
+                    AppNavigation(historyEnabled = settings?.historyEnabled ?: true)
                 }
             }
         }
@@ -45,27 +45,20 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(historyEnabled: Boolean) {
     val navController = rememberNavController()
     val context = LocalContext.current
     val application = context.applicationContext as LinkahestApplication
     val historyRepository: LinkTransformationRepository = application.repository
     val settingsRepository = application.settingsRepository
-    val settings by settingsRepository.userSettings.collectAsState(initial = null)
 
-    LaunchedEffect(settings?.historyEnabled) {
-        if (settings?.historyEnabled == false) {
-            historyRepository.clearAllTransformations()
-        }
-    }
-    
     NavHost(
         navController = navController,
         startDestination = "main"
     ) {
         composable("main") {
             MainScreen(
-                historyEnabled = settings?.historyEnabled ?: true,
+                historyEnabled = historyEnabled,
                 onNavigateToSettings = {
                     navController.navigate("settings")
                 },
@@ -79,7 +72,7 @@ fun AppNavigation() {
         }
         composable("settings") {
             val settingsViewModel: SettingsViewModel = viewModel(
-                factory = SettingsViewModelFactory(settingsRepository, historyRepository)
+                factory = SettingsViewModelFactory(settingsRepository)
             )
             SettingsScreen(
                 viewModel = settingsViewModel,

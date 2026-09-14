@@ -8,7 +8,9 @@ import java.net.URLDecoder
 class YouTubeTransformer(
     private val getInvidiousInstance: suspend () -> String
 ) : LinkTransformer {
-    
+
+    override val supportedTypes = setOf(TransformationOptions.YOUTUBE_INVIDIOUS.type)
+
     private val youtubeHosts = setOf(
         "youtube.com",
         "www.youtube.com",
@@ -51,22 +53,17 @@ class YouTubeTransformer(
     }
     
     override suspend fun transform(url: String, option: TransformationOption): String {
-        if (!canTransform(url)) return url
-        
-        return when (option.type) {
-            "youtube_invidious" -> convertToInvidious(url)
-            else -> url
-        }
-    }
-    
-    private suspend fun convertToInvidious(url: String): String {
-        try {
+        if (option.type != TransformationOptions.YOUTUBE_INVIDIOUS.type) return url
+
+        return try {
+            val uri = URI(url)
+            if (!isYouTubeHost(uri)) return url
+
             val cleanUri = URI(TrackingCleaner.cleanUrl(url))
             val videoId = extractVideoId(cleanUri) ?: return url
-            val invidiousInstance = getInvidiousInstance()
-            return "https://$invidiousInstance/watch?v=$videoId"
+            "https://${getInvidiousInstance()}/watch?v=$videoId"
         } catch (e: Exception) {
-            return url
+            url
         }
     }
 

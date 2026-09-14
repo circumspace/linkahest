@@ -30,7 +30,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -40,6 +39,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hermeticvm.linkahest.data.models.LinkTransformation
 import kotlinx.coroutines.launch
@@ -52,8 +52,8 @@ fun HistoryScreen(
     viewModel: HistoryViewModel = viewModel(),
     onNavigateBack: () -> Unit = {}
 ) {
-    val historyEnabled by viewModel.historyEnabled.collectAsState()
-    val transformations by viewModel.transformations.collectAsState()
+    val historyEnabled by viewModel.historyEnabled.collectAsStateWithLifecycle()
+    val transformations by viewModel.transformations.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 

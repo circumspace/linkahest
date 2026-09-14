@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.hermeticvm.linkahest.data.models.UserSettings
 import com.hermeticvm.linkahest.data.models.DefaultInstances
 import com.hermeticvm.linkahest.data.repository.InstanceAvailabilityRepository
-import com.hermeticvm.linkahest.data.repository.LinkTransformationRepository
 import com.hermeticvm.linkahest.data.repository.SettingsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +17,6 @@ import kotlinx.coroutines.launch
 
 class SettingsViewModel(
     private val settingsRepository: SettingsRepository,
-    private val historyRepository: LinkTransformationRepository,
     private val availabilityRepository: InstanceAvailabilityRepository = InstanceAvailabilityRepository()
 ) : ViewModel() {
     
@@ -95,9 +93,6 @@ class SettingsViewModel(
     fun updateHistoryEnabled(enabled: Boolean) {
         viewModelScope.launch {
             settingsRepository.updateHistoryEnabled(enabled)
-            if (!enabled) {
-                historyRepository.clearAllTransformations()
-            }
         }
     }
 
@@ -178,13 +173,12 @@ fun isRedirectingInstance(instance: String): Boolean {
 }
 
 class SettingsViewModelFactory(
-    private val settingsRepository: SettingsRepository,
-    private val historyRepository: LinkTransformationRepository
+    private val settingsRepository: SettingsRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SettingsViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return SettingsViewModel(settingsRepository, historyRepository) as T
+            return SettingsViewModel(settingsRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -7,7 +7,9 @@ import java.net.URI
 class RedditTransformer(
     private val getRedlibInstance: suspend () -> String
 ) : LinkTransformer {
-    
+
+    override val supportedTypes = setOf(TransformationOptions.REDDIT_REDLIB.type)
+
     private val redditHosts = setOf(
         "reddit.com",
         "www.reddit.com",
@@ -19,8 +21,7 @@ class RedditTransformer(
     
     override fun canTransform(url: String): Boolean {
         return try {
-            val uri = URI(url)
-            redditHosts.contains(uri.host?.lowercase())
+            isRedditHost(URI(url))
         } catch (e: Exception) {
             false
         }
@@ -35,30 +36,35 @@ class RedditTransformer(
     }
     
     override suspend fun transform(url: String, option: TransformationOption): String {
-        if (!canTransform(url)) return url
-        
-        return when (option.type) {
-            "reddit_redlib" -> convertToRedlib(url)
-            else -> url
+        if (option.type != TransformationOptions.REDDIT_REDLIB.type) return url
+
+        return try {
+            val uri = URI(url)
+            if (!isRedditHost(uri)) return url
+            convertToRedlib(uri)
+        } catch (e: Exception) {
+            url
         }
     }
-    
-    private suspend fun convertToRedlib(url: String): String {
-        try {
-            val uri = URI(url)
+
+    private suspend fun convertToRedlib(uri: URI): String {
+        return try {
             val path = uri.path ?: ""
-            
+
             // Clean tracking parameters from query and fragment
-            val cleanUrl = TrackingCleaner.cleanUrl(url)
-            val cleanUri = URI(cleanUrl)
-            
+            val cleanUri = URI(TrackingCleaner.cleanUrl(uri.toString()))
+
             val query = cleanUri.query?.let { "?$it" } ?: ""
             val fragment = cleanUri.fragment?.let { "#$it" } ?: ""
-            
+
             val redlibInstance = getRedlibInstance()
-            return "https://$redlibInstance$path$query$fragment"
+            "https://$redlibInstance$path$query$fragment"
         } catch (e: Exception) {
-            return url
+            uri.toString()
         }
+    }
+
+    private fun isRedditHost(uri: URI): Boolean {
+        return redditHosts.contains(uri.host?.lowercase())
     }
 }

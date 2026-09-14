@@ -7,7 +7,9 @@ import java.net.URI
 class TwitterTransformer(
     private val getNitterInstance: suspend () -> String
 ) : LinkTransformer {
-    
+
+    override val supportedTypes = setOf(TransformationOptions.TWITTER_NITTER.type)
+
     private val twitterHosts = setOf(
         "twitter.com",
         "www.twitter.com",
@@ -18,8 +20,7 @@ class TwitterTransformer(
     
     override fun canTransform(url: String): Boolean {
         return try {
-            val uri = URI(url)
-            twitterHosts.contains(uri.host?.lowercase())
+            isTwitterHost(URI(url))
         } catch (e: Exception) {
             false
         }
@@ -34,30 +35,35 @@ class TwitterTransformer(
     }
     
     override suspend fun transform(url: String, option: TransformationOption): String {
-        if (!canTransform(url)) return url
-        
-        return when (option.type) {
-            "twitter_nitter" -> convertToNitter(url)
-            else -> url
+        if (option.type != TransformationOptions.TWITTER_NITTER.type) return url
+
+        return try {
+            val uri = URI(url)
+            if (!isTwitterHost(uri)) return url
+            convertToNitter(uri)
+        } catch (e: Exception) {
+            url
         }
     }
-    
-    private suspend fun convertToNitter(url: String): String {
-        try {
-            val uri = URI(url)
+
+    private suspend fun convertToNitter(uri: URI): String {
+        return try {
             val path = uri.path ?: ""
-            
+
             // Clean tracking parameters from query and fragment
-            val cleanUrl = TrackingCleaner.cleanUrl(url)
-            val cleanUri = URI(cleanUrl)
-            
+            val cleanUri = URI(TrackingCleaner.cleanUrl(uri.toString()))
+
             val query = cleanUri.query?.let { "?$it" } ?: ""
             val fragment = cleanUri.fragment?.let { "#$it" } ?: ""
-            
+
             val nitterInstance = getNitterInstance()
-            return "https://$nitterInstance$path$query$fragment"
+            "https://$nitterInstance$path$query$fragment"
         } catch (e: Exception) {
-            return url
+            uri.toString()
         }
+    }
+
+    private fun isTwitterHost(uri: URI): Boolean {
+        return twitterHosts.contains(uri.host?.lowercase())
     }
 }

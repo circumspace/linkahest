@@ -7,9 +7,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hermeticvm.linkahest.ui.theme.LinkahestTheme
@@ -32,7 +32,8 @@ class ShareReceiverActivity : ComponentActivity() {
         if (sharedText != null) {
             setContent {
                 val application = application as LinkahestApplication
-                val settings by application.settingsRepository.userSettings.collectAsState(initial = null)
+                val settings by application.settingsRepository.userSettings
+                    .collectAsStateWithLifecycle(initialValue = null)
 
                 LinkahestTheme(themeMode = settings?.themeMode ?: "system") {
                     Surface(

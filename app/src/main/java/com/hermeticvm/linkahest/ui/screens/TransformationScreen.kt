@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hermeticvm.linkahest.ui.components.TransformationOptionCard
 import com.hermeticvm.linkahest.ui.components.UrlDisplayCard
@@ -29,7 +30,7 @@ fun TransformationScreen(
     viewModel: TransformationViewModel = viewModel(),
     onNavigateBack: () -> Unit = {}
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current
     val snackbarHostState = remember { SnackbarHostState() }

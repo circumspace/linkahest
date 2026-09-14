@@ -8,6 +8,8 @@ class MediumTransformer(
     private val getScribeInstance: suspend () -> String = { "libmedium.batsense.net" }
 ) : LinkTransformer {
 
+    override val supportedTypes = setOf(TransformationOptions.MEDIUM_SCRIBE.type)
+
     private val mediumHosts = setOf(
         "medium.com",
         "www.medium.com",
@@ -16,8 +18,7 @@ class MediumTransformer(
 
     override fun canTransform(url: String): Boolean {
         return try {
-            val uri = URI(url)
-            mediumHosts.contains(uri.host?.lowercase())
+            isMediumHost(URI(url))
         } catch (e: Exception) {
             false
         }
@@ -32,18 +33,20 @@ class MediumTransformer(
     }
 
     override suspend fun transform(url: String, option: TransformationOption): String {
-        if (!canTransform(url)) return url
+        if (option.type != TransformationOptions.MEDIUM_SCRIBE.type) return url
 
-        return when (option.type) {
-            "medium_scribe" -> convertToScribe(url)
-            else -> url
+        return try {
+            val uri = URI(url)
+            if (!isMediumHost(uri)) return url
+            convertToScribe(uri)
+        } catch (e: Exception) {
+            url
         }
     }
 
-    private suspend fun convertToScribe(url: String): String {
+    private suspend fun convertToScribe(originalUri: URI): String {
         return try {
-            val cleanUrl = TrackingCleaner.cleanUrl(url)
-            val uri = URI(cleanUrl)
+            val uri = URI(TrackingCleaner.cleanUrl(originalUri.toString()))
             val path = uri.path ?: ""
             val query = uri.query?.let { "?$it" } ?: ""
             val fragment = uri.fragment?.let { "#$it" } ?: ""
@@ -51,7 +54,11 @@ class MediumTransformer(
 
             "https://$scribeInstance$path$query$fragment"
         } catch (e: Exception) {
-            url
+            originalUri.toString()
         }
+    }
+
+    private fun isMediumHost(uri: URI): Boolean {
+        return mediumHosts.contains(uri.host?.lowercase())
     }
 }

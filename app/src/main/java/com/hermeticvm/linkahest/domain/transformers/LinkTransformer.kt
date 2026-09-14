@@ -3,6 +3,7 @@ package com.hermeticvm.linkahest.domain.transformers
 import com.hermeticvm.linkahest.data.models.TransformationOption
 
 interface LinkTransformer {
+    val supportedTypes: Set<String>
     fun canTransform(url: String): Boolean
     fun getTransformationOptions(url: String): List<TransformationOption>
     fun getUnavailableReason(url: String): String? = null
