@@ -21,6 +21,15 @@ jobs:
       - name: Install Android SDK
         run: sdkmanager "platforms;android-37.0" "build-tools;36.0.0"
       - uses: gradle/actions/setup-gradle@v5
+      # Gitea runs this on daemon, whose jobs share a 4 GB cap; a separate Kotlin
+      # compiler JVM next to the Gradle daemon does not fit.
+      - name: Fit Gradle into the runner's memory
+        run: |
+          mkdir -p "${GRADLE_USER_HOME:-$HOME/.gradle}"
+          printf '%s\n' \
+            'org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8' \
+            'kotlin.compiler.execution.strategy=in-process' \
+            >> "${GRADLE_USER_HOME:-$HOME/.gradle}/gradle.properties"
       - name: Test, lint, and build
         run: ./gradlew test lint assembleDebug
       - uses: actions/upload-artifact@v7
